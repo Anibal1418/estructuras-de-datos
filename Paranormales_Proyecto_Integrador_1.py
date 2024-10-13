@@ -36,4 +36,5 @@ def leerInput (stringinput):
 
 
 ecuacion = input("Administre la ecuación en cuestión con el formato y orden correcto: ")
+ecuacion = ecuacion.replace(' ', '')
 leerInput(ecuacion.lower())
