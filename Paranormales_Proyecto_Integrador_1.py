@@ -10,8 +10,6 @@ def leerInput (stringinput):
         print("Asegúrese que la ecuación esté en su forma más simplificada")
     elif(stringinput.count('x') == 0 and stringinput.count('y') == 0 and stringinput.count('z') == 0 and stringinput.count('w') == 0):
         print("Una expresión sin variables no es ecuación")
-    elif(stringinput.find('x') > stringinput.find('y') or stringinput.find('y') > stringinput.find('z') or stringinput.find('z') > stringinput.find('w')):
-        print("Asegúrese que la ecuación esté en orden: x, y, z, w, término independiente")
     else:
         global a 
         if 'x' in stringinput:
@@ -65,8 +63,9 @@ while(True):
             invalid = -1
     if invalid==-1:
         continue
-
-    success = leerInput(ecuacion.lower().replace(' ', ''))
+    #asegurense de hacer esto con cada ecuación para ignorar whitespace y mayúsculas
+    ecuacion = ecuacion.lower().replace(" ", "")
+    success = leerInput(ecuacion)
 
     if(success):
         break
