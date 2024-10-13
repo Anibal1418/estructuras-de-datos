@@ -15,6 +15,10 @@ def leerInput (stringinput):
         if 'x' in stringinput:
             posicionX = stringinput.find('x')
             a = stringinput[0:posicionX]
+            if(a == '+' or a == ''):
+                a = '1'
+            elif(a == '-'):
+                a = '-1'
         else:
             posicionX = -1
             a = 0
@@ -22,13 +26,22 @@ def leerInput (stringinput):
         if 'y' in stringinput:
             posicionY = stringinput.find('y')
             b = stringinput[posicionX+1:posicionY]
+            if(b == '+'):
+                b = '1'
+            elif(b == '-'):
+                b = '-1'
         else:
             posicionY = posicionX
             b = 0
+
         global c
         if 'z' in stringinput:
             posicionZ = stringinput.find('z')
             c = stringinput[posicionY+1:posicionZ]
+            if(c == '+'):
+                c = '1'
+            elif(c == '-'):
+                c = '-1'
         else:
             posicionZ = posicionY
             c = 0
@@ -36,13 +49,22 @@ def leerInput (stringinput):
         if 'w' in stringinput:
             posicionW = stringinput.find('w')
             d = stringinput[posicionZ+1:posicionW]
+            if(d == '+'):
+                d = '1'
+            elif(d == '-'):
+                d = '-1'
         else:
             posicionW = posicionZ
             d = 0
         global independiente
-        independiente = stringinput[posicionW+1::]
+        if '=' in stringinput:
+            independiente = stringinput[posicionW+1::]
+        else:
+            print("Una ecuación lineal debe ser igualada a un término independiente.")
+            return False
         if(independiente.replace(' ', '') == ''):
             independiente = 0
+        independiente = independiente.replace('=', '')
         print(f"{a}x {b}y {c}z {d}w {independiente}")
         return True
 
@@ -52,7 +74,8 @@ for i in range (48):
     if(chr(i) != '+' and chr(i) != '-' and chr(i) != ' '):
         charsInvalidos.append(chr(i))
 for i in range(58, 65):
-    charsInvalidos.append(chr(i))
+    if(chr(i) != '='):
+        charsInvalidos.append(chr(i))
 for i in range(91, 97):
     charsInvalidos.append(chr(i))
 
@@ -80,7 +103,7 @@ terminosIndependientes = []
 while(i < numeroDeEcuaciones):
 
     invalid = 0
-    ecuacion = input("Administre la ecuación en cuestión con el formato y orden correcto: ")
+    ecuacion = input("Administre la ecuación en cuestión con el formato y orden correcto: \n Estructura ejemplo: ax + by +cz +dw = i:\n")
 
     #Chequea que no hayan caracteres inválidos en la ecuación
     for char in charsInvalidos:
