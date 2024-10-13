@@ -16,7 +16,7 @@ def leerInput (stringinput):
             posicionX = stringinput.find('x')
             a = stringinput[0:posicionX]
         else:
-            posicionX = 0
+            posicionX = -1
             a = 0
         global b
         if 'y' in stringinput:
@@ -41,6 +41,8 @@ def leerInput (stringinput):
             d = 0
         global independiente
         independiente = stringinput[posicionW+1::]
+        if(independiente.replace(' ', '') == ''):
+            independiente = 0
         print(f"{a}x {b}y {c}z {d}w {independiente}")
         return True
 
@@ -55,25 +57,61 @@ for i in range(91, 97):
     charsInvalidos.append(chr(i))
 
 while(True):
+    try:
+        numeroDeEcuaciones = int(input("Ingrese el número de ecuaciones a analizar: "))
+    except:
+        print("Asegúrese que sea un número natural de ecuaciones.")
+        continue
+    if(numeroDeEcuaciones <= 0):
+        print("Asegúrese que sea un número natural de ecuaciones.")
+        continue
+    break
+i = 0
+
+#Listas de coeficientes X, Y, Z, W respectivamente, convertir en matrices si es necesario 
+#y no asumir que se utilizarán todas las listas ya que no siempre serán 4 variables a analizar
+
+coeficientesX = []
+coeficientesY = []
+coeficientesZ = []
+coeficientesW =[]
+terminosIndependientes = []
+
+while(i < numeroDeEcuaciones):
+
     invalid = 0
     ecuacion = input("Administre la ecuación en cuestión con el formato y orden correcto: ")
+
+    #Chequea que no hayan caracteres inválidos en la ecuación
     for char in charsInvalidos:
         if char in ecuacion:
             print("Caracter inválido detectado, asegúrese de limpiar su ecuación de entrada")
             invalid = -1
     if invalid==-1:
         continue
-    #asegurense de hacer esto con cada ecuación para ignorar whitespace y mayúsculas
+
+    #Asegúrense de hacer esto con cada ecuación para ignorar whitespace y mayúsculas
     ecuacion = ecuacion.lower().replace(" ", "")
     success = leerInput(ecuacion)
 
     if(success):
-        break
+        try:
+            ai = int(a)
+            bi = int(b)
+            ci = int(c)
+            di = int(d)
+            ind = int(independiente)
+            coeficientesX.append(ai)
+            coeficientesY.append(bi)
+            coeficientesZ.append(ci)
+            coeficientesW.append(di)
+            terminosIndependientes.append(ind)
+            i += 1
+        except:
+            print("Ocurrió un error al transformar los valores a enteros, asegúrese de estar usando el formato correcto de una ecuación e intente de nuevo.")
 
-a = int(a)
-b= int(b)
-c=int(c)
-d=int(d)
-independiente=int(independiente)
-
-print(f"a={a}, b={b}, c={c}, d={d}, termino independiente={independiente}")
+print(f"Coeficientes de X: {coeficientesX}")
+print(f"Coeficientes de Y: {coeficientesY}")
+print(f"Coeficientes de Z: {coeficientesZ}")
+print(f"Coeficientes de W: {coeficientesW}")
+print(f"Términos independientes: {terminosIndependientes}")
