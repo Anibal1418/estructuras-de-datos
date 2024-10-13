@@ -4,7 +4,7 @@ import scipy as sp
 #Esta función lee una versión en minúsculas y sin espacios de la ecuación de entrada y encuentra los valores de a, b, c, d y el término independiente
 #Esta función asume que la ecuación está organizada de la forma x, y, z, w, independiente.
 #Si encuentran una manera de, antes de llamar esta función, forzar la ecuación a entrar en esa organización, fuera perfecto
-#si no logran hacerlo, crear sus funciones asumiendo que el orden está bien hecho, ya que hice una función que devuelve el control al usuario si el orden es incorrecto
+#si no logran hacerlo, crear sus funciones asumiendo que el orden está bien hecho, ya que haré una función que devuelve el control al usuario si el orden es incorrecto
 def leerInput (stringinput):
     if(stringinput.count('x') > 1 or stringinput.count('y') > 1 or stringinput.count('z') > 1 or stringinput.count('w') > 1):
         print("Asegúrese que la ecuación esté en su forma más simplificada")
