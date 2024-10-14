@@ -171,7 +171,7 @@ else:
     #Si el sistema es tildado como no resolvible, salir del programa
     print("El sistema no es resolvible por Cramer.")
     exit
-
+ 
 #Aquí iría código para confirmar la segunda parte del teorema, consultar el documento para más información
 
 matrizGeneral.shape =  (numeroDeVariables,numeroDeEcuaciones)
@@ -179,8 +179,10 @@ matrizGeneral = np.transpose(matrizGeneral)
 print(f"La Matriz General formada es: \n{matrizGeneral}")
 
 # Comprobar que el determinante de la matriz de coeficientes no sea cero
-if matrizGeneral.shape[0] == matrizGeneral.shape[1]:
+if matrizGeneral.shape[0] == matrizGeneral.shape[1]:  # Solo si es cuadrada
     determinante = np.linalg.det(matrizGeneral)
     if determinante == 0:
         print("Las ecuaciones son linealmente dependientes. El sistema no es resolvible por Cramer.")
         exit()
+
+#con la matriz general ya hecha, el resto es trabajo simple
