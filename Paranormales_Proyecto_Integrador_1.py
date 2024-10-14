@@ -181,3 +181,4 @@ matrizGeneral = np.transpose(matrizGeneral)
 print(f"La Matriz General formada es: \n{matrizGeneral}")
 
 #con la matriz general ya hecha, el resto es trabajo simple
+
