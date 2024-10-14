@@ -117,6 +117,7 @@ while(i < numeroDeEcuaciones):
     ecuacion = ecuacion.lower().replace(" ", "")
     success = leerInput(ecuacion)
 
+#Si la lectura fue exitosa, extrae las variables globales, las convierte en enteros, y las añade al final de los arreglos correspondientes
     if(success):
         try:
             ai = int(a)
@@ -124,41 +125,56 @@ while(i < numeroDeEcuaciones):
             ci = int(c)
             di = int(d)
             ind = int(independiente)
-            coeficientesX.append(ai)
-            coeficientesY.append(bi)
-            coeficientesZ.append(ci)
-            coeficientesW.append(di)
-            terminosIndependientes.append(ind)
+            coeficientesX = np.append(coeficientesX, ai)
+            coeficientesY = np.append(coeficientesY, bi)
+            coeficientesZ = np.append(coeficientesZ, ci)
+            coeficientesW = np.append(coeficientesW, di)
+            terminosIndependientes = np.append(terminosIndependientes, ind)
             i += 1
         except:
             print("Ocurrió un error al transformar los valores a enteros, asegúrese de estar usando el formato correcto de una ecuación e intente de nuevo.")
 
+#Esta impresión es solo para debugging, será borrada en la entrega final
 print(f"Coeficientes de X: {coeficientesX}")
 print(f"Coeficientes de Y: {coeficientesY}")
 print(f"Coeficientes de Z: {coeficientesZ}")
 print(f"Coeficientes de W: {coeficientesW}")
 print(f"Términos independientes: {terminosIndependientes}")
 
+matrizGeneral = np.array([])
 #teorema de rouché-frobenius para determinar si las ecuaciones forman un sistema compatible determinado
 numeroDeVariables = 0
 for element in coeficientesX:
     if element != 0:
         numeroDeVariables += 1
+        matrizGeneral = np.append(matrizGeneral, coeficientesX, axis=0)
         break
 for element in coeficientesY:
     if element != 0:
         numeroDeVariables += 1
+        matrizGeneral = np.append(matrizGeneral, coeficientesY, axis=0)
         break
 for element in coeficientesZ:
     if element != 0:
         numeroDeVariables += 1
+        matrizGeneral = np.append(matrizGeneral, coeficientesZ, axis=0)
         break
 for element in coeficientesW:
     if element != 0:
         numeroDeVariables += 1
+        matrizGeneral = np.append(matrizGeneral, coeficientesW, axis=0)
         break
 if(numeroDeVariables == numeroDeEcuaciones):
     print("El sistema de ecuaciones es resolvible por Cramer.")
 else:
+    #Si el sistema es tildado como no resolvible, salir del programa
     print("El sistema no es resolvible por Cramer.")
     exit
+
+#Aquí iría código para confirmar la segunda parte del teorema, consultar el documento para más información
+
+matrizGeneral.shape =  (numeroDeVariables,numeroDeEcuaciones)
+matrizGeneral = np.transpose(matrizGeneral)
+print(f"La Matriz General formada es: \n{matrizGeneral}")
+
+#con la matriz general ya hecha, el resto es trabajo simple
