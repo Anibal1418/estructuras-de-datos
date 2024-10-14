@@ -120,6 +120,7 @@ while(i < numeroDeEcuaciones):
         if char in ecuacion:
             print("Caracter inválido detectado, asegúrese de limpiar su ecuación de entrada")
             invalid = -1
+            break
     if invalid==-1:
         continue
 
