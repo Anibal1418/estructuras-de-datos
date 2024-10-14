@@ -161,21 +161,25 @@ for element in coeficientesX:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesX, axis=0)
+        matrizX = np.array([])
         break
 for element in coeficientesY:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesY, axis=0)
+        matrizY = np.array([])
         break
 for element in coeficientesZ:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesZ, axis=0)
+        matrizZ = np.array([])
         break
 for element in coeficientesW:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesW, axis=0)
+        matrizW = np.array([])
         break
 if(numeroDeVariables == numeroDeEcuaciones):
     print("El sistema de ecuaciones cumple con las condiciones de Rouché-Frobenius.")
@@ -187,8 +191,7 @@ else:
 #Aquí iría código para confirmar la segunda parte del teorema, consultar el documento para más información
 
 matrizGeneral.shape =  (numeroDeVariables,numeroDeEcuaciones)
-matrizGeneral = np.transpose(matrizGeneral)
-print(f"La Matriz General formada es: \n{matrizGeneral}")
+print(f"La Matriz General formada es: \n{np.transpose(matrizGeneral)}")
 
 # Comprobar que el determinante de la matriz de coeficientes no sea cero
 if matrizGeneral.shape[0] == matrizGeneral.shape[1]:  # Solo si es cuadrada
@@ -202,3 +205,7 @@ else:
     print("No se pudo calcular el determinante, asegúrese que el número de ecuaciones es igual al número de variables.")
     exit()
 #con la matriz general ya hecha, el resto es trabajo simple
+
+matrizX = np.delete(matrizGeneral, 0, 0)
+matrizX = np.insert(matrizX, 0, terminosIndependientes, axis = 0)
+print(matrizX)
