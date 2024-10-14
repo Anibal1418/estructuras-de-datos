@@ -95,15 +95,16 @@ coeficientesZ = np.array([])
 coeficientesW = np.array([])
 terminosIndependientes = np.array([])
 
-#Función que toma la ecuación del usuario en cualquier orden y las organiza con sus variables respectivas
-
-def organizarecuacion(ecuacion):
+#Funcion para organizar y despejar la ecuacion
+#hecho por Eduardo Alba ( linea 100-182)
+def organizar_ecuacion(ecuacion):
     ecuacion = ecuacion.lower().replace(" ", "")
     if '=' not in ecuacion:
         print("La ecuacion debe tener un termino igual (=)")
         return None
 
     izquierda, derecha = ecuacion.split('=')
+    
     coef_a = "0"
     coef_b = "0"
     coef_c = "0"
@@ -125,7 +126,15 @@ def organizarecuacion(ecuacion):
     coef_c = coef_c if coef_c not in ["", "+", "-"] else coef_c + "1"
     coef_d = coef_d if coef_d not in ["", "+", "-"] else coef_d + "1"
 
-    nueva_ecuacion = f"{coef_a}x {coef_b}y {coef_c}z {coef_d}w = {derecha}"
+    terminos_izquierda = re.findall(r'[\+\-]?\d+(?![xyzw])', izquierda)
+    terminos_derecha = re.findall(r'[\+\-]?\d+(?![xyzw])', derecha)
+
+    termino_independiente_izquierda = sum(int(t) for t in terminos_izquierda)
+    termino_independiente_derecha = sum(int(t) for t in terminos_derecha)
+
+    termino_independiente = termino_independiente_derecha - termino_independiente_izquierda
+
+    nueva_ecuacion = f"{coef_a}x {coef_b}y {coef_c}z {coef_d}w = {termino_independiente}"
     nueva_ecuacion = nueva_ecuacion.replace("+-", "-")
     nueva_ecuacion = nueva_ecuacion.replace("-+", "-")
     nueva_ecuacion = nueva_ecuacion.replace("--", "+")
@@ -134,35 +143,43 @@ def organizarecuacion(ecuacion):
 
     return nueva_ecuacion.strip()
 
-#loop que pide el número de ecuaciones y chequea que sea entero
 while True:
     try:
         numeroDeEcuaciones = int(input("Ingrese el número de ecuaciones al analizar: "))
-        if(numeroDeEcuaciones <= 0):
+        if numeroDeEcuaciones <= 0:
             raise ValueError
         break
     except ValueError:
-        print("asegurese que sea un numero natural de ecuaciones")
+        print("Asegúrese de que sea un número natural de ecuaciones.")
 
 i = 0
-
-#loop que pide tantas ecuaciones al usuario como este especificó
 while i < numeroDeEcuaciones:
-    ecuacion = input("Ingrese la ecuacion a analizar: ")
+    ecuacion = input("Ingrese la ecuación a analizar: ")
     invalid = False
+    
     for char in charsInvalidos:
         if char in ecuacion:
             print("Caracter inválido detectado, asegúrese de limpiar su ecuación de entrada")
             invalid = True
             break
+    
     if invalid:
         continue
-#organiza la ecuación
-    ecuacion = organizarecuacion(ecuacion)
-    if ecuacion is None:
+
+    nueva_ecuacion = organizar_ecuacion(ecuacion)
+    if nueva_ecuacion is None:
         continue
-#llama la función leer input
-    success = leerInput(ecuacion)
+
+    print("Ecuación reorganizada:", nueva_ecuacion)
+
+    try:
+        
+        success = leerInput(nueva_ecuacion) 
+        if not success:
+            continue
+    except ValueError as e:
+        print("Ocurrió un error al transformar los valores a enteros, asegúrese de estar usando el formato correcto de una ecuación e intente de nuevo.")
+        continue
 
 #Si la lectura fue exitosa, extrae las variables globales, las convierte en enteros, y las añade al final de los arreglos correspondientes
     if(success):
