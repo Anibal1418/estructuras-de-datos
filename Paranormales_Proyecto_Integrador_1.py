@@ -6,10 +6,15 @@ import scipy as sp
 #Si encuentran una manera de, antes de llamar esta función, forzar la ecuación a entrar en esa organización, fuera perfecto
 #si no logran hacerlo, crear sus funciones asumiendo que el orden está bien hecho, ya que haré una función que devuelve el control al usuario si el orden es incorrecto
 def leerInput (stringinput):
+
     if(stringinput.count('x') > 1 or stringinput.count('y') > 1 or stringinput.count('z') > 1 or stringinput.count('w') > 1):
         print("Asegúrese que la ecuación esté en su forma más simplificada")
+        return False
+
     elif(stringinput.count('x') == 0 and stringinput.count('y') == 0 and stringinput.count('z') == 0 and stringinput.count('w') == 0):
         print("Una expresión sin variables no es ecuación")
+        return False
+
     else:
         global a 
         if 'x' in stringinput:
@@ -22,6 +27,7 @@ def leerInput (stringinput):
         else:
             posicionX = -1
             a = 0
+
         global b
         if 'y' in stringinput:
             posicionY = stringinput.find('y')
@@ -45,6 +51,7 @@ def leerInput (stringinput):
         else:
             posicionZ = posicionY
             c = 0
+
         global d
         if 'w' in stringinput:
             posicionW = stringinput.find('w')
@@ -56,6 +63,7 @@ def leerInput (stringinput):
         else:
             posicionW = posicionZ
             d = 0
+
         global independiente
         if '=' in stringinput:
             independiente = stringinput[posicionW+1::]
@@ -66,9 +74,10 @@ def leerInput (stringinput):
             independiente = 0
         independiente = independiente.replace('=', '')
         print(f"{a}x {b}y {c}z {d}w {independiente}")
+
         return True
 
-#crear una lista repleta de caracteres inválidos que no deberían aparecer en la ecuación
+#crea una lista repleta de caracteres inválidos que no deberían aparecer en la ecuación
 charsInvalidos = []
 for i in range (48):
     if(chr(i) != '+' and chr(i) != '-' and chr(i) != ' '):
@@ -79,9 +88,10 @@ for i in range(58, 65):
 for i in range(91, 97):
     charsInvalidos.append(chr(i))
 
+#loop que pide al usuario el número de ecuaciones, y confirma que este sea válido
 while(True):
     try:
-        numeroDeEcuaciones = int(input("Ingrese el numero de ecuaciones a analizar: "))
+        numeroDeEcuaciones = int(input("Ingrese el número de ecuaciones a analizar: "))
     except:
         print("Asegúrese que sea un número natural de ecuaciones.")
         continue
@@ -91,8 +101,7 @@ while(True):
     break
 i = 0
 
-#Listas de coeficientes X, Y, Z, W respectivamente, convertir en matrices si es necesario 
-#y no asumir que se utilizarán todas las listas ya que no siempre serán 4 variables a analizar
+#Listas de coeficientes X, Y, Z, W respectivamente, convertidas en vectores numpy
 
 coeficientesX = np.array([])
 coeficientesY = np.array([])
@@ -100,6 +109,7 @@ coeficientesZ = np.array([])
 coeficientesW = np.array([])
 terminosIndependientes = np.array([])
 
+#loop que toma input del usuario para construir todas las ecuaciones que este pide
 while(i < numeroDeEcuaciones):
 
     invalid = 0
@@ -113,7 +123,7 @@ while(i < numeroDeEcuaciones):
     if invalid==-1:
         continue
 
-    #Asegúrense de hacer esto con cada ecuación para ignorar whitespace y mayúsculas
+#El programa se asegura de hacer esto con cada ecuación para ignorar whitespace y mayúsculas
     ecuacion = ecuacion.lower().replace(" ", "")
     success = leerInput(ecuacion)
 
@@ -141,9 +151,10 @@ print(f"Coeficientes de Z: {coeficientesZ}")
 print(f"Coeficientes de W: {coeficientesW}")
 print(f"Términos independientes: {terminosIndependientes}")
 
+#Crear matriz general que será usada en el método de Cramer
 matrizGeneral = np.array([])
-
-#Teorema de rouché-frobenius para determinar si las ecuaciones forman un sistema compatible determinado
+#teorema de rouché-frobenius para determinar si las ecuaciones forman un sistema compatible determinado
+#de paso, ir añadiendo los vectores de coeficientes no vacíos a la matriz general
 numeroDeVariables = 0
 for element in coeficientesX:
     if element != 0:
@@ -170,8 +181,8 @@ if(numeroDeVariables == numeroDeEcuaciones):
 else:
     #Si el sistema es tildado como no resolvible, salir del programa
     print("El sistema no es resolvible por Cramer.")
-    exit
- 
+    exit()
+
 #Aquí iría código para confirmar la segunda parte del teorema, consultar el documento para más información
 
 matrizGeneral.shape =  (numeroDeVariables,numeroDeEcuaciones)
@@ -184,5 +195,7 @@ if matrizGeneral.shape[0] == matrizGeneral.shape[1]:  # Solo si es cuadrada
     if determinante == 0:
         print("Las ecuaciones son linealmente dependientes. El sistema no es resolvible por Cramer.")
         exit()
-
+else:
+    print("No se pudo calcular el determinante, asegúrese que el número de ecuaciones es igual al número de variables.")
+    exit()
 #con la matriz general ya hecha, el resto es trabajo simple
