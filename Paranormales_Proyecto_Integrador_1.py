@@ -162,33 +162,41 @@ for element in coeficientesX:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesX, axis=0)
         matrizX = np.array([])
+        xi = 0
         break
     else:
         matrizX = np.array([None])
+        xi = -1
 for element in coeficientesY:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesY, axis=0)
         matrizY = np.array([])
+        yi = xi+1
         break
     else:
         matrizY = np.array([None])
+        yi = xi
 for element in coeficientesZ:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesZ, axis=0)
         matrizZ = np.array([])
+        zi = yi+1
         break
     else:
         matrizZ = np.array([None])
+        zi = yi
 for element in coeficientesW:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesW, axis=0)
         matrizW = np.array([])
+        wi = zi+1
         break
     else:
         matrizW = np.array([None])
+        wi = zi
 if(numeroDeVariables == numeroDeEcuaciones):
     print("El sistema de ecuaciones cumple con las condiciones de Rouché-Frobenius.")
 else:
@@ -214,22 +222,24 @@ else:
     exit()
 #con la matriz general ya hecha, el resto es trabajo simple
 
+#Si las matrices fueron creadas correctamente, borra los elementos de sus coeficientes correspondientes,
+#y los sustituye por los términos independientes, estilo Cramer
 if(None not in matrizX):
-    matrizX = np.delete(matrizGeneral, 0, 0)
-    matrizX = np.insert(matrizX, 0, terminosIndependientes, axis = 0)
-    print(matrizX)
+    matrizX = np.delete(matrizGeneral, xi, 0)
+    matrizX = np.insert(matrizX, xi, terminosIndependientes, axis = 0)
+    print(matrizX.transpose())
 
 if(None not in matrizY):
-    matrizY = np.delete(matrizGeneral, 1, 0)
-    matrizY = np.insert(matrizY, 1, terminosIndependientes, axis = 0)
-    print(matrizY)
+    matrizY = np.delete(matrizGeneral, yi, 0)
+    matrizY = np.insert(matrizY, yi, terminosIndependientes, axis = 0)
+    print(matrizY.transpose())
 
 if(None not in matrizZ):
-    matrizZ = np.delete(matrizGeneral, 2, 0)
-    matrizZ = np.insert(matrizZ, 2, terminosIndependientes, axis = 0)
-    print(matrizZ)
+    matrizZ = np.delete(matrizGeneral, zi, 0)
+    matrizZ = np.insert(matrizZ, zi, terminosIndependientes, axis = 0)
+    print(matrizZ.transpose())
 
 if(None not in matrizW):
-    matrizW = np.delete(matrizGeneral, 3, 0)
-    matrizW = np.insert(matrizW, 3, terminosIndependientes, axis = 0)
-    print(matrizW)
+    matrizW = np.delete(matrizGeneral, wi, 0)
+    matrizW = np.insert(matrizW, wi, terminosIndependientes, axis = 0)
+    print(matrizW.transpose())
