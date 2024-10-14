@@ -177,7 +177,7 @@ for element in coeficientesW:
         matrizGeneral = np.append(matrizGeneral, coeficientesW, axis=0)
         break
 if(numeroDeVariables == numeroDeEcuaciones):
-    print("El sistema de ecuaciones es resolvible por Cramer.")
+    print("El sistema de ecuaciones cumple con las condiciones de Rouché-Frobenius.")
 else:
     #Si el sistema es tildado como no resolvible, salir del programa
     print("El sistema no es resolvible por Cramer.")
@@ -193,8 +193,10 @@ print(f"La Matriz General formada es: \n{matrizGeneral}")
 if matrizGeneral.shape[0] == matrizGeneral.shape[1]:  # Solo si es cuadrada
     determinante = np.linalg.det(matrizGeneral)
     if determinante == 0:
-        print("Las ecuaciones son linealmente dependientes. El sistema no es resolvible por Cramer.")
+        print("Pero las ecuaciones son linealmente dependientes. Por lo que el sistema no es resolvible por Cramer.")
         exit()
+    else:
+        print("Y las ecuaciones son linealmente independientes, por lo que el sistema es resolvible por Cramer.")
 else:
     print("No se pudo calcular el determinante, asegúrese que el número de ecuaciones es igual al número de variables.")
     exit()
