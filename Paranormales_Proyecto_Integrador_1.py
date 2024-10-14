@@ -81,7 +81,7 @@ for i in range(91, 97):
 
 while(True):
     try:
-        numeroDeEcuaciones = int(input("Ingrese el número de ecuaciones a analizar: "))
+        numeroDeEcuaciones = int(input("Ingrese el numero de ecuaciones a analizar: "))
     except:
         print("Asegúrese que sea un número natural de ecuaciones.")
         continue
@@ -93,9 +93,6 @@ i = 0
 
 #Listas de coeficientes X, Y, Z, W respectivamente, convertir en matrices si es necesario 
 #y no asumir que se utilizarán todas las listas ya que no siempre serán 4 variables a analizar
-
-#pepe
-
 
 coeficientesX = np.array([])
 coeficientesY = np.array([])
@@ -145,7 +142,8 @@ print(f"Coeficientes de W: {coeficientesW}")
 print(f"Términos independientes: {terminosIndependientes}")
 
 matrizGeneral = np.array([])
-#teorema de rouché-frobenius para determinar si las ecuaciones forman un sistema compatible determinado
+
+#Teorema de rouché-frobenius para determinar si las ecuaciones forman un sistema compatible determinado
 numeroDeVariables = 0
 for element in coeficientesX:
     if element != 0:
@@ -180,4 +178,9 @@ matrizGeneral.shape =  (numeroDeVariables,numeroDeEcuaciones)
 matrizGeneral = np.transpose(matrizGeneral)
 print(f"La Matriz General formada es: \n{matrizGeneral}")
 
-#con la matriz general ya hecha, el resto es trabajo simple
+# Comprobar que el determinante de la matriz de coeficientes no sea cero
+if matrizGeneral.shape[0] == matrizGeneral.shape[1]:
+    determinante = np.linalg.det(matrizGeneral)
+    if determinante == 0:
+        print("Las ecuaciones son linealmente dependientes. El sistema no es resolvible por Cramer.")
+        exit()
