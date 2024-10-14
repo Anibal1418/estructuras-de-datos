@@ -1,3 +1,4 @@
+import numpy as np
 import scipy as sp
 
 #Esta función lee una versión en minúsculas y sin espacios de la ecuación de entrada y encuentra los valores de a, b, c, d y el término independiente
@@ -93,11 +94,11 @@ i = 0
 #Listas de coeficientes X, Y, Z, W respectivamente, convertir en matrices si es necesario 
 #y no asumir que se utilizarán todas las listas ya que no siempre serán 4 variables a analizar
 
-coeficientesX = []
-coeficientesY = []
-coeficientesZ = []
-coeficientesW =[]
-terminosIndependientes = []
+coeficientesX = np.array([])
+coeficientesY = np.array([])
+coeficientesZ = np.array([])
+coeficientesW = np.array([])
+terminosIndependientes = np.array([])
 
 while(i < numeroDeEcuaciones):
 
