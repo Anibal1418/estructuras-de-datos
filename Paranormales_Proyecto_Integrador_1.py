@@ -94,6 +94,9 @@ i = 0
 #Listas de coeficientes X, Y, Z, W respectivamente, convertir en matrices si es necesario 
 #y no asumir que se utilizarán todas las listas ya que no siempre serán 4 variables a analizar
 
+#pepe
+
+
 coeficientesX = np.array([])
 coeficientesY = np.array([])
 coeficientesZ = np.array([])
