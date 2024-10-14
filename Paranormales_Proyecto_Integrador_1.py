@@ -1,4 +1,3 @@
-import numpy as np
 import scipy as sp
 
 #Esta función lee una versión en minúsculas y sin espacios de la ecuación de entrada y encuentra los valores de a, b, c, d y el término independiente
