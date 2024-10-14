@@ -1,6 +1,6 @@
 import numpy as np
 import scipy as sp
-
+import re
 #Esta función lee una versión en minúsculas y sin espacios de la ecuación de entrada y encuentra los valores de a, b, c, d y el término independiente
 #Esta función asume que la ecuación está organizada de la forma x, y, z, w, independiente.
 #Si encuentran una manera de, antes de llamar esta función, forzar la ecuación a entrar en esa organización, fuera perfecto
@@ -91,45 +91,86 @@ for i in range(91, 97):
 welcomeMsg = ("Bienvenido al programa de resolución de sistemas de ecuaciones lineales usando el método de Cramer.\n\nEste programa le permitirá ingresar un sistema de ecuaciones y determinará si es resolvible.\nEl método de Cramer requiere que el número de ecuaciones sea igual al número de variables y que el determinante de la matriz de coeficientes no sea cero.\nPor favor, siga las instrucciones cuidadosamente para ingresar las ecuaciones en el formato correcto.\nAsegúrese de que las ecuaciones estén en la forma general: ax + by + cz + dw = i.\n\nEmpecemos...\n")
 print(welcomeMsg)
 
-#loop que pide al usuario el número de ecuaciones, y confirma que este sea válido
-while(True):
-    try:
-        numeroDeEcuaciones = int(input("Ingrese el número de ecuaciones a analizar: "))
-    except:
-        print("Asegúrese que sea un número natural de ecuaciones.")
-        continue
-    if(numeroDeEcuaciones <= 0):
-        print("Asegúrese que sea un número natural de ecuaciones.")
-        continue
-    break
-i = 0
-
-#Listas de coeficientes X, Y, Z, W respectivamente, convertidas en vectores numpy
-
+# Inicializar los arreglos de coeficientes y términos independientes
 coeficientesX = np.array([])
 coeficientesY = np.array([])
 coeficientesZ = np.array([])
 coeficientesW = np.array([])
 terminosIndependientes = np.array([])
 
-#loop que toma input del usuario para construir todas las ecuaciones que este pide
-while(i < numeroDeEcuaciones):
+#loop que pide al usuario el número de ecuaciones, y confirma que este sea válido
 
-    invalid = 0
-    ecuacion = input("Administre la ecuación en cuestión con el formato y orden correcto: \n Estructura ejemplo: ax + by +cz +dw = i:\n")
+def organizarecuacion(ecuacion):
+    ecuacion = ecuacion.lower().replace(" ", "")
+    if '=' not in ecuacion:
+        print("La ecuacion debe tener un termino igual (=)")
+        return None
 
-    #Chequea que no hayan caracteres inválidos en la ecuación
+    izquierda, derecha = ecuacion.split('=')
+    coef_a = "0"
+    coef_b = "0"
+    coef_c = "0"
+    coef_d = "0"
+
+    terminos = re.findall(r'[\+\-]?\d*[xyzw]', izquierda)
+    for termino in terminos:
+        if 'x' in termino:
+            coef_a = termino.replace('x', '')
+        elif 'y' in termino:
+            coef_b = termino.replace('y', '')
+        elif 'z' in termino:
+            coef_c = termino.replace('z', '')
+        elif 'w' in termino:
+            coef_d = termino.replace('w', '')
+
+    coef_a = coef_a if coef_a not in ["", "+", "-"] else coef_a + "1"
+    coef_b = coef_b if coef_b not in ["", "+", "-"] else coef_b + "1"
+    coef_c = coef_c if coef_c not in ["", "+", "-"] else coef_c + "1"
+    coef_d = coef_d if coef_d not in ["", "+", "-"] else coef_d + "1"
+
+    nueva_ecuacion = f"{coef_a}x {coef_b}y {coef_c}z {coef_d}w = {derecha}"
+    nueva_ecuacion = nueva_ecuacion.replace("+-", "-")
+    nueva_ecuacion = nueva_ecuacion.replace("-+", "-")
+    nueva_ecuacion = nueva_ecuacion.replace("--", "+")
+    nueva_ecuacion = nueva_ecuacion.replace("++", "+")
+    nueva_ecuacion = nueva_ecuacion.replace("  ", " ")
+
+    return nueva_ecuacion.strip()
+
+while True:
+    try:
+        numeroDeEcuaciones = int(input("Ingrese el número de ecuaciones al analizar: "))
+        if(numeroDeEcuaciones <= 0):
+            raise ValueError
+        break
+    except ValueError:
+        print("asegurese que sea un numero natural de ecuaciones")
+
+i = 0
+
+while i < numeroDeEcuaciones:
+    ecuacion = input("Ingrese la ecuacion a analizar: ")
+    invalid = False
     for char in charsInvalidos:
         if char in ecuacion:
             print("Caracter inválido detectado, asegúrese de limpiar su ecuación de entrada")
-            invalid = -1
+            invalid = True
             break
-    if invalid==-1:
+    if invalid:
         continue
 
-#El programa se asegura de hacer esto con cada ecuación para ignorar whitespace y mayúsculas
-    ecuacion = ecuacion.lower().replace(" ", "")
+    ecuacion = organizarecuacion(ecuacion)
+    if ecuacion is None:
+        continue
+
     success = leerInput(ecuacion)
+    if success:
+        i += 1
+
+success = leerInput(ecuacion)
+if success:
+    i += 1
+
 
 #Si la lectura fue exitosa, extrae las variables globales, las convierte en enteros, y las añade al final de los arreglos correspondientes
     if(success):
@@ -147,7 +188,7 @@ while(i < numeroDeEcuaciones):
             i += 1
         except:
             print("Ocurrió un error al transformar los valores a enteros, asegúrese de estar usando el formato correcto de una ecuación e intente de nuevo.")
-
+            
 #Esta impresión es solo para debugging, será borrada en la entrega final
 print(f"Coeficientes de X: {coeficientesX}")
 print(f"Coeficientes de Y: {coeficientesY}")
