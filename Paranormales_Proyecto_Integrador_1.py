@@ -75,7 +75,8 @@ def leerInput (stringinput):
 
         return True
 
-#crea una lista repleta de caracteres inválidos que no deberían aparecer en la ecuación #Hecho por Alisha N 24-0813
+#crea una lista repleta de caracteres inválidos que no deberían aparecer en la ecuación 
+#Hecho por Alisha Núñez 24-0813
 charsInvalidos = []
 for i in range (48):
     if(chr(i) != '+' and chr(i) != '-' and chr(i) != ' '):
@@ -89,15 +90,16 @@ for i in range(91, 97):
 welcomeMsg = ("Bienvenido al programa de resolución de sistemas de ecuaciones lineales usando el método de Cramer.\n\nEste programa le permitirá ingresar un sistema de ecuaciones y determinará si es resolvible.\nEl método de Cramer requiere que el número de ecuaciones sea igual al número de variables y que el determinante de la matriz de coeficientes no sea cero.\nPor favor, siga las instrucciones cuidadosamente para ingresar las ecuaciones en el formato correcto.\n\nEmpecemos...\n")
 print(welcomeMsg)
 
-# Inicializar los arreglos de coeficientes y términos independientes #Hecho por Alisha N 24-0813
+# Inicializar los arreglos de coeficientes y términos independientes 
+#Hecho por Alisha N 24-0813
 coeficientesX = np.array([])
 coeficientesY = np.array([])
 coeficientesZ = np.array([])
 coeficientesW = np.array([])
 terminosIndependientes = np.array([])
 
-#Funcion para organizar y despejar la ecuacion
-#hecho por Eduardo Alba ( linea 100-182)
+#Función para organizar y despejar la ecuación
+#hecho por Eduardo Alba (línea 100-182)
 def organizar_ecuacion(ecuacion):
     ecuacion = ecuacion.lower().replace(" ", "")
     if '=' not in ecuacion:
@@ -185,7 +187,7 @@ while i < numeroDeEcuaciones:
         continue
 
 #Si la lectura fue exitosa, extrae las variables globales, las convierte en enteros, y las añade al final de los arreglos correspondientes
-#Hecho por Luis Sánchez
+#Hecho por Luis Sánchez 24-0057
     if(success):
         try:
             ai = int(a)
@@ -260,7 +262,7 @@ matrizGeneral.shape =  (numeroDeVariables,numeroDeEcuaciones)
 print(f"La Matriz General formada es: \n{np.transpose(matrizGeneral)}")
 
 # Comprobar que el determinante de la matriz de coeficientes no sea cero y determinar finalmente si es resolvible
-# Hecho por Luis Muñoz
+# Hecho por Luis Muñoz 24-0345
 if matrizGeneral.shape[0] == matrizGeneral.shape[1]:  # Solo si es cuadrada
     determinanteGeneral = np.linalg.det(matrizGeneral)
     if determinanteGeneral == 0:
@@ -273,7 +275,7 @@ else:
     exit()
 
 # Buscar la matriz transpuesta, el determinante y el valor de cada variable. 
-# Hecho por Luis Muñoz
+# Hecho por Luis Muñoz 24-0345
 if(None not in matrizX):
     matrizX = np.delete(matrizGeneral, xi, 0)
     matrizX = np.insert(matrizX, xi, terminosIndependientes, axis = 0)
