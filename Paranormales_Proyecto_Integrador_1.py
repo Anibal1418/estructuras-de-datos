@@ -269,7 +269,7 @@ else:
     exit()
 
 # Buscar la matriz transpuesta, el determinante y el valor de cada variable. 
-# Hecho por Luis Muñoz y Luis Anibal
+# Hecho por Luis Muñoz
 if(None not in matrizX):
     matrizX = np.delete(matrizGeneral, xi, 0)
     matrizX = np.insert(matrizX, xi, terminosIndependientes, axis = 0)
