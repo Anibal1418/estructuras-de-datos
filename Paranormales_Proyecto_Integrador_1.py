@@ -90,6 +90,7 @@ for i in range(91, 97):
 
 welcomeMsg = ("Bienvenido al programa de resolución de sistemas de ecuaciones lineales usando el método de Cramer.\n\nEste programa le permitirá ingresar un sistema de ecuaciones y determinará si es resolvible.\nEl método de Cramer requiere que el número de ecuaciones sea igual al número de variables y que el determinante de la matriz de coeficientes no sea cero.\nPor favor, siga las instrucciones cuidadosamente para ingresar las ecuaciones en el formato correcto.\nAsegúrese de que las ecuaciones estén en la forma general: ax + by + cz + dw = i.\n\nEmpecemos...\n")
 print(welcomeMsg)
+
 #loop que pide al usuario el número de ecuaciones, y confirma que este sea válido
 while(True):
     try:
@@ -213,8 +214,8 @@ print(f"La Matriz General formada es: \n{np.transpose(matrizGeneral)}")
 
 # Comprobar que el determinante de la matriz de coeficientes no sea cero
 if matrizGeneral.shape[0] == matrizGeneral.shape[1]:  # Solo si es cuadrada
-    determinante = np.linalg.det(matrizGeneral)
-    if determinante == 0:
+    determinanteGeneral = np.linalg.det(matrizGeneral)
+    if determinanteGeneral == 0:
         print("Pero las ecuaciones son linealmente dependientes. Por lo que el sistema no es resolvible por Cramer.")
         exit()
     else:
