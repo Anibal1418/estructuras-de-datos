@@ -88,6 +88,8 @@ for i in range(58, 65):
 for i in range(91, 97):
     charsInvalidos.append(chr(i))
 
+welcomeMsg = ("Bienvenido al programa de resolución de sistemas de ecuaciones lineales usando el método de Cramer.\n\nEste programa le permitirá ingresar un sistema de ecuaciones y determinará si es resolvible.\nEl método de Cramer requiere que el número de ecuaciones sea igual al número de variables y que el determinante de la matriz de coeficientes no sea cero.\nPor favor, siga las instrucciones cuidadosamente para ingresar las ecuaciones en el formato correcto.\nAsegúrese de que las ecuaciones estén en la forma general: ax + by + cz + dw = i.\n\nEmpecemos...\n")
+print(welcomeMsg)
 #loop que pide al usuario el número de ecuaciones, y confirma que este sea válido
 while(True):
     try:
