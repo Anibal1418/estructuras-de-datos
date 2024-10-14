@@ -164,13 +164,6 @@ while i < numeroDeEcuaciones:
         continue
 
     success = leerInput(ecuacion)
-    if success:
-        i += 1
-
-success = leerInput(ecuacion)
-if success:
-    i += 1
-
 
 #Si la lectura fue exitosa, extrae las variables globales, las convierte en enteros, y las añade al final de los arreglos correspondientes
     if(success):
