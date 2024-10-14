@@ -71,7 +71,7 @@ def leerInput (stringinput):
         if(independiente.replace(' ', '') == ''):
             independiente = 0
         independiente = independiente.replace('=', '')
-        print(f"{a}x {b}y {c}z {d}w {independiente}")
+        print(f"Coeficientes: {a}x {b}y {c}z {d}w {independiente}")
 
         return True
 
