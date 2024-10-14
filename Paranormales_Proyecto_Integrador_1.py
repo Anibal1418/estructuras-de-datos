@@ -230,19 +230,32 @@ else:
 if(None not in matrizX):
     matrizX = np.delete(matrizGeneral, xi, 0)
     matrizX = np.insert(matrizX, xi, terminosIndependientes, axis = 0)
+    determinanteX = np.linalg.det(matrizX)
+    valorX = determinanteX / determinanteGeneral
     print(matrizX.transpose())
+    print(f"Determinante de Matriz X: {determinanteX}, Valor de X: {valorX}")
 
 if(None not in matrizY):
     matrizY = np.delete(matrizGeneral, yi, 0)
     matrizY = np.insert(matrizY, yi, terminosIndependientes, axis = 0)
+    determinanteY = np.linalg.det(matrizY)
+    valorY = determinanteY / determinanteGeneral
     print(matrizY.transpose())
+    print(f"Determinante de Matriz Y: {determinanteY}, Valor de Y: {valorY}")
+
 
 if(None not in matrizZ):
     matrizZ = np.delete(matrizGeneral, zi, 0)
     matrizZ = np.insert(matrizZ, zi, terminosIndependientes, axis = 0)
+    determinanteZ = np.linalg.det(matrizZ)
+    valorZ = determinanteZ / determinanteGeneral
     print(matrizZ.transpose())
+    print(f"Determinante de Matriz Z: {determinanteZ}, Valor de Z: {valorZ}")
 
 if(None not in matrizW):
     matrizW = np.delete(matrizGeneral, wi, 0)
     matrizW = np.insert(matrizW, wi, terminosIndependientes, axis = 0)
+    determinanteW = np.linalg.det(matrizW)
+    valorW = determinanteW / determinanteGeneral
     print(matrizW.transpose())
+    print(f"Determinante de Matriz W: {determinanteW}, Valor de W: {valorW}")
