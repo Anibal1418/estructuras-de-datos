@@ -138,3 +138,27 @@ print(f"Coeficientes de Y: {coeficientesY}")
 print(f"Coeficientes de Z: {coeficientesZ}")
 print(f"Coeficientes de W: {coeficientesW}")
 print(f"Términos independientes: {terminosIndependientes}")
+
+#teorema de rouché-frobenius para determinar si las ecuaciones forman un sistema compatible determinado
+numeroDeVariables = 0
+for element in coeficientesX:
+    if element != 0:
+        numeroDeVariables += 1
+        break
+for element in coeficientesY:
+    if element != 0:
+        numeroDeVariables += 1
+        break
+for element in coeficientesZ:
+    if element != 0:
+        numeroDeVariables += 1
+        break
+for element in coeficientesW:
+    if element != 0:
+        numeroDeVariables += 1
+        break
+if(numeroDeVariables == numeroDeEcuaciones):
+    print("El sistema de ecuaciones es resolvible por Cramer.")
+else:
+    print("El sistema no es resolvible por Cramer.")
+    exit
