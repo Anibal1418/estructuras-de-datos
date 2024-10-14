@@ -2,6 +2,7 @@ import numpy as np
 import re
 #Esta función lee una versión en minúsculas y sin espacios de la ecuación de entrada y encuentra los valores de a, b, c, d y el término independiente
 #Esta función asume que la ecuación está organizada de la forma x, y, z, w.
+#Hecho por Luis Sánchez 24-0057
 def leerInput (stringinput):
 
     if(stringinput.count('x') > 1 or stringinput.count('y') > 1 or stringinput.count('z') > 1 or stringinput.count('w') > 1):
@@ -74,7 +75,7 @@ def leerInput (stringinput):
 
         return True
 
-#crea una lista repleta de caracteres inválidos que no deberían aparecer en la ecuación
+#crea una lista repleta de caracteres inválidos que no deberían aparecer en la ecuación #Hecho por Alisha N 24-0813
 charsInvalidos = []
 for i in range (48):
     if(chr(i) != '+' and chr(i) != '-' and chr(i) != ' '):
@@ -88,7 +89,7 @@ for i in range(91, 97):
 welcomeMsg = ("Bienvenido al programa de resolución de sistemas de ecuaciones lineales usando el método de Cramer.\n\nEste programa le permitirá ingresar un sistema de ecuaciones y determinará si es resolvible.\nEl método de Cramer requiere que el número de ecuaciones sea igual al número de variables y que el determinante de la matriz de coeficientes no sea cero.\nPor favor, siga las instrucciones cuidadosamente para ingresar las ecuaciones en el formato correcto.\n\nEmpecemos...\n")
 print(welcomeMsg)
 
-# Inicializar los arreglos de coeficientes y términos independientes
+# Inicializar los arreglos de coeficientes y términos independientes #Hecho por Alisha N 24-0813
 coeficientesX = np.array([])
 coeficientesY = np.array([])
 coeficientesZ = np.array([])
@@ -143,6 +144,8 @@ def organizar_ecuacion(ecuacion):
 
     return nueva_ecuacion.strip()
 
+#Ejecución del algoritmo 
+#Por Yordi Polanco 24-0937
 while True:
     try:
         numeroDeEcuaciones = int(input("Ingrese el número de ecuaciones al analizar: "))
@@ -182,6 +185,7 @@ while i < numeroDeEcuaciones:
         continue
 
 #Si la lectura fue exitosa, extrae las variables globales, las convierte en enteros, y las añade al final de los arreglos correspondientes
+#Hecho por Luis Sánchez
     if(success):
         try:
             ai = int(a)
@@ -202,7 +206,7 @@ while i < numeroDeEcuaciones:
 #Crear matriz general que será usada en el método de Cramer
 matrizGeneral = np.array([])
 #teorema de rouché-frobenius para determinar si las ecuaciones forman un sistema compatible determinado
-#de paso, ir añadiendo los vectores de coeficientes no vacíos a la matriz general
+#de paso, ir añadiendo los vectores de coeficientes no vacíos a la matriz general 
 numeroDeVariables = 0
 for element in coeficientesX:
     if element != 0:
