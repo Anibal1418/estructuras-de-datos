@@ -284,5 +284,5 @@ if(None not in matrizW):
     determinanteW = np.linalg.det(matrizW)
     valorW = round(determinanteW / determinanteGeneral, 2)
     print(matrizW.transpose())
-    print(f"Determinante de Matriz W: {determinanteW}, Valor de W: {valorW}")
+    print(f"Determinante de Matriz W: {round(determinanteW, 2)}, Valor de W: {valorW}")
 #cada función al ser ejecutada da el valor de sus variables redondeadas
