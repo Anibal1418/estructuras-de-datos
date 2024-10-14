@@ -163,24 +163,32 @@ for element in coeficientesX:
         matrizGeneral = np.append(matrizGeneral, coeficientesX, axis=0)
         matrizX = np.array([])
         break
+    else:
+        matrizX = np.array([None])
 for element in coeficientesY:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesY, axis=0)
         matrizY = np.array([])
         break
+    else:
+        matrizY = np.array([None])
 for element in coeficientesZ:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesZ, axis=0)
         matrizZ = np.array([])
         break
+    else:
+        matrizZ = np.array([None])
 for element in coeficientesW:
     if element != 0:
         numeroDeVariables += 1
         matrizGeneral = np.append(matrizGeneral, coeficientesW, axis=0)
         matrizW = np.array([])
         break
+    else:
+        matrizW = np.array([None])
 if(numeroDeVariables == numeroDeEcuaciones):
     print("El sistema de ecuaciones cumple con las condiciones de Rouché-Frobenius.")
 else:
@@ -206,6 +214,22 @@ else:
     exit()
 #con la matriz general ya hecha, el resto es trabajo simple
 
-matrizX = np.delete(matrizGeneral, 0, 0)
-matrizX = np.insert(matrizX, 0, terminosIndependientes, axis = 0)
-print(matrizX)
+if(None not in matrizX):
+    matrizX = np.delete(matrizGeneral, 0, 0)
+    matrizX = np.insert(matrizX, 0, terminosIndependientes, axis = 0)
+    print(matrizX)
+
+if(None not in matrizY):
+    matrizY = np.delete(matrizGeneral, 1, 0)
+    matrizY = np.insert(matrizY, 1, terminosIndependientes, axis = 0)
+    print(matrizY)
+
+if(None not in matrizZ):
+    matrizZ = np.delete(matrizGeneral, 2, 0)
+    matrizZ = np.insert(matrizZ, 2, terminosIndependientes, axis = 0)
+    print(matrizZ)
+
+if(None not in matrizW):
+    matrizW = np.delete(matrizGeneral, 3, 0)
+    matrizW = np.insert(matrizW, 3, terminosIndependientes, axis = 0)
+    print(matrizW)
