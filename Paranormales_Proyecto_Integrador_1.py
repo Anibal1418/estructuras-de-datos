@@ -1,10 +1,7 @@
 import numpy as np
-import scipy as sp
 import re
 #Esta función lee una versión en minúsculas y sin espacios de la ecuación de entrada y encuentra los valores de a, b, c, d y el término independiente
-#Esta función asume que la ecuación está organizada de la forma x, y, z, w, independiente.
-#Si encuentran una manera de, antes de llamar esta función, forzar la ecuación a entrar en esa organización, fuera perfecto
-#si no logran hacerlo, crear sus funciones asumiendo que el orden está bien hecho, ya que haré una función que devuelve el control al usuario si el orden es incorrecto
+#Esta función asume que la ecuación está organizada de la forma x, y, z, w.
 def leerInput (stringinput):
 
     if(stringinput.count('x') > 1 or stringinput.count('y') > 1 or stringinput.count('z') > 1 or stringinput.count('w') > 1):
@@ -88,7 +85,7 @@ for i in range(58, 65):
 for i in range(91, 97):
     charsInvalidos.append(chr(i))
 
-welcomeMsg = ("Bienvenido al programa de resolución de sistemas de ecuaciones lineales usando el método de Cramer.\n\nEste programa le permitirá ingresar un sistema de ecuaciones y determinará si es resolvible.\nEl método de Cramer requiere que el número de ecuaciones sea igual al número de variables y que el determinante de la matriz de coeficientes no sea cero.\nPor favor, siga las instrucciones cuidadosamente para ingresar las ecuaciones en el formato correcto.\nAsegúrese de que las ecuaciones estén en la forma general: ax + by + cz + dw = i.\n\nEmpecemos...\n")
+welcomeMsg = ("Bienvenido al programa de resolución de sistemas de ecuaciones lineales usando el método de Cramer.\n\nEste programa le permitirá ingresar un sistema de ecuaciones y determinará si es resolvible.\nEl método de Cramer requiere que el número de ecuaciones sea igual al número de variables y que el determinante de la matriz de coeficientes no sea cero.\nPor favor, siga las instrucciones cuidadosamente para ingresar las ecuaciones en el formato correcto.\n\nEmpecemos...\n")
 print(welcomeMsg)
 
 # Inicializar los arreglos de coeficientes y términos independientes
@@ -98,7 +95,7 @@ coeficientesZ = np.array([])
 coeficientesW = np.array([])
 terminosIndependientes = np.array([])
 
-#loop que pide al usuario el número de ecuaciones, y confirma que este sea válido
+#Función que toma la ecuación del usuario en cualquier orden y las organiza con sus variables respectivas
 
 def organizarecuacion(ecuacion):
     ecuacion = ecuacion.lower().replace(" ", "")
@@ -137,6 +134,7 @@ def organizarecuacion(ecuacion):
 
     return nueva_ecuacion.strip()
 
+#loop que pide el número de ecuaciones y chequea que sea entero
 while True:
     try:
         numeroDeEcuaciones = int(input("Ingrese el número de ecuaciones al analizar: "))
@@ -148,6 +146,7 @@ while True:
 
 i = 0
 
+#loop que pide tantas ecuaciones al usuario como este especificó
 while i < numeroDeEcuaciones:
     ecuacion = input("Ingrese la ecuacion a analizar: ")
     invalid = False
@@ -158,11 +157,11 @@ while i < numeroDeEcuaciones:
             break
     if invalid:
         continue
-
+#organiza la ecuación
     ecuacion = organizarecuacion(ecuacion)
     if ecuacion is None:
         continue
-
+#llama la función leer input
     success = leerInput(ecuacion)
 
 #Si la lectura fue exitosa, extrae las variables globales, las convierte en enteros, y las añade al final de los arreglos correspondientes
@@ -182,12 +181,6 @@ while i < numeroDeEcuaciones:
         except:
             print("Ocurrió un error al transformar los valores a enteros, asegúrese de estar usando el formato correcto de una ecuación e intente de nuevo.")
             
-#Esta impresión es solo para debugging, será borrada en la entrega final
-print(f"Coeficientes de X: {coeficientesX}")
-print(f"Coeficientes de Y: {coeficientesY}")
-print(f"Coeficientes de Z: {coeficientesZ}")
-print(f"Coeficientes de W: {coeficientesW}")
-print(f"Términos independientes: {terminosIndependientes}")
 
 #Crear matriz general que será usada en el método de Cramer
 matrizGeneral = np.array([])
@@ -234,6 +227,7 @@ for element in coeficientesW:
     else:
         matrizW = np.array([None])
         wi = zi
+#confirma rouché-frobenius
 if(numeroDeVariables == numeroDeEcuaciones):
     print("El sistema de ecuaciones cumple con las condiciones de Rouché-Frobenius.")
 else:
@@ -241,12 +235,10 @@ else:
     print("El sistema no es resolvible por Cramer.")
     exit()
 
-#Aquí iría código para confirmar la segunda parte del teorema, consultar el documento para más información
-
 matrizGeneral.shape =  (numeroDeVariables,numeroDeEcuaciones)
 print(f"La Matriz General formada es: \n{np.transpose(matrizGeneral)}")
 
-# Comprobar que el determinante de la matriz de coeficientes no sea cero
+# Comprobar que el determinante de la matriz de coeficientes no sea cero y determinar finalmente si es resolvible
 if matrizGeneral.shape[0] == matrizGeneral.shape[1]:  # Solo si es cuadrada
     determinanteGeneral = np.linalg.det(matrizGeneral)
     if determinanteGeneral == 0:
@@ -293,3 +285,4 @@ if(None not in matrizW):
     valorW = determinanteW / determinanteGeneral
     print(matrizW.transpose())
     print(f"Determinante de Matriz W: {determinanteW}, Valor de W: {valorW}")
+#cada función al ser ejecutada da el valor de sus variables redondeadas
