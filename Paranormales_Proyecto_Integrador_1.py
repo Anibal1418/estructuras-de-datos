@@ -227,7 +227,7 @@ for element in coeficientesW:
     else:
         matrizW = np.array([None])
         wi = zi
-#confirma rouché-frobenius
+#Confirmar rouché-frobenius
 if(numeroDeVariables == numeroDeEcuaciones):
     print("El sistema de ecuaciones cumple con las condiciones de Rouché-Frobenius.")
 else:
@@ -239,6 +239,7 @@ matrizGeneral.shape =  (numeroDeVariables,numeroDeEcuaciones)
 print(f"La Matriz General formada es: \n{np.transpose(matrizGeneral)}")
 
 # Comprobar que el determinante de la matriz de coeficientes no sea cero y determinar finalmente si es resolvible
+# Hecho por Luis Muñoz
 if matrizGeneral.shape[0] == matrizGeneral.shape[1]:  # Solo si es cuadrada
     determinanteGeneral = np.linalg.det(matrizGeneral)
     if determinanteGeneral == 0:
@@ -249,15 +250,15 @@ if matrizGeneral.shape[0] == matrizGeneral.shape[1]:  # Solo si es cuadrada
 else:
     print("No se pudo calcular el determinante, asegúrese que el número de ecuaciones es igual al número de variables.")
     exit()
-#con la matriz general ya hecha, el resto es trabajo simple
 
-#Si las matrices fueron creadas correctamente, borra los elementos de sus coeficientes correspondientes,
-#y los sustituye por los términos independientes, estilo Cramer
+# Buscar la matriz transpuesta, el determinante y el valor de cada variable. 
+# Hecho por Luis Muñoz y Luis Anibal
 if(None not in matrizX):
     matrizX = np.delete(matrizGeneral, xi, 0)
     matrizX = np.insert(matrizX, xi, terminosIndependientes, axis = 0)
     determinanteX = np.linalg.det(matrizX)
     valorX = round(determinanteX / determinanteGeneral, 2)
+    print("Matriz X:")
     print(matrizX.transpose())
     print(f"Determinante de Matriz X: {round(determinanteX, 2)}, Valor de X: {valorX}")
 
@@ -266,15 +267,16 @@ if(None not in matrizY):
     matrizY = np.insert(matrizY, yi, terminosIndependientes, axis = 0)
     determinanteY = np.linalg.det(matrizY)
     valorY = round(determinanteY / determinanteGeneral, 2)
+    print("Matriz Y:")
     print(matrizY.transpose())
     print(f"Determinante de Matriz Y: {round(determinanteY, 2)}, Valor de Y: {valorY}")
-
 
 if(None not in matrizZ):
     matrizZ = np.delete(matrizGeneral, zi, 0)
     matrizZ = np.insert(matrizZ, zi, terminosIndependientes, axis = 0)
     determinanteZ = np.linalg.det(matrizZ)
     valorZ = round(determinanteZ / determinanteGeneral, 2)
+    print("Matriz Z:")
     print(matrizZ.transpose())
     print(f"Determinante de Matriz Z: {round(determinanteZ, 2)}, Valor de Z: {valorZ}")
 
@@ -283,6 +285,6 @@ if(None not in matrizW):
     matrizW = np.insert(matrizW, wi, terminosIndependientes, axis = 0)
     determinanteW = np.linalg.det(matrizW)
     valorW = round(determinanteW / determinanteGeneral, 2)
+    print("Matriz W:")
     print(matrizW.transpose())
     print(f"Determinante de Matriz W: {round(determinanteW, 2)}, Valor de W: {valorW}")
-#cada función al ser ejecutada da el valor de sus variables redondeadas
