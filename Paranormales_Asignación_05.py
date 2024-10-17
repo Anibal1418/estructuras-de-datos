@@ -1,5 +1,6 @@
 from random import randrange
 
+#Parte 1, ejercicio de manipulación de Colas
 class Cola:
 #Definir métodos que nos provean con las operaciones de la cola
     
