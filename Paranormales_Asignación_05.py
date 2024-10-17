@@ -60,6 +60,7 @@ while(True):
 
 for indiceCliente in range (numClientes):
 
+#Sistema que asigna un número de entrada aleatorio entre el 1 y el 3, y asigna al siguiente cliente a la fila correspondiente al número que salga
     numEntrada = randrange(1, 4)
     while(True):
         if numEntrada == 1:
@@ -90,10 +91,12 @@ for indiceCliente in range (numClientes):
                 numEntrada = randrange(1,3)
                 continue
 
+#Parte que imprime cuántos clientes hay en cada fila en un instante de tiempo y como están organizados
     print(f"Hay {len(cola1)} cliente{'s' if len(cola1) != 1 else ''} en la fila 1: {cola1}")
     print(f"Hay {len(cola2)} cliente{'s' if len(cola2) != 1 else ''} en la fila 2: {cola2}")
     print(f"Y hay {len(cola3)} cliente{'s' if len(cola3) != 1 else ''} en la fila 3: {cola3}")
 
+#Sistema en el que se asigna un número de salida aleatorio entre 1 y 3 y se atiende el cliente de la fila correspondiente
     numSalida = randrange(1, 4)
     if numSalida == 1:
         try:
@@ -114,7 +117,8 @@ for indiceCliente in range (numClientes):
         except:
             print("Se intentó atender un cliente en la fila 3, pero está vacía.\n")
 
-print("El día ha llegado a su fin y ya no se admieten más clientes, vaciando las filas restantes...")
+#Cuando acaben de llegar los clientes, vaciar todas las filas en orden simultáneamente
+print("El día ha llegado a su fin y ya no se admiten más clientes, vaciando las filas restantes...")
 while(not cola1.isEmpty()):
     print(f"Atendido cliente {cola1.peek()} en la fila 1")
     cola1.dequeue()
