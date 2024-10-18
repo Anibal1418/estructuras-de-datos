@@ -128,3 +128,63 @@ while(not cola2.isEmpty()):
 while(not cola3.isEmpty()):
     print(f"Atendido cliente {cola3.peek()} en la fila 3")
     cola3.dequeue()
+
+# Yordi Polanco 24-0937
+# Definimos el número máximo de iteraciones (50)
+num_iteraciones = 50
+contador_iteraciones = 0
+
+# Ciclo para simular las iteraciones hasta que se cumplan las 50 o hasta que no queden clientes en las filas
+while contador_iteraciones < num_iteraciones or (not cola1.isEmpty() or not cola2.isEmpty() or not cola3.isEmpty()):
+    if contador_iteraciones < num_iteraciones:
+        # Asignación de nuevos clientes a las filas
+        numEntrada = randrange(1, 4)
+        if numEntrada == 1 and len(cola1) < numMaxClientes:
+            cola1.enqueue(contador_iteraciones + 1)
+            print(f"Se añadió el cliente {contador_iteraciones + 1} a la fila 1")
+        elif numEntrada == 2 and len(cola2) < numMaxClientes:
+            cola2.enqueue(contador_iteraciones + 1)
+            print(f"Se añadió el cliente {contador_iteraciones + 1} a la fila 2")
+        elif numEntrada == 3 and len(cola3) < numMaxClientes:
+            cola3.enqueue(contador_iteraciones + 1)
+            print(f"Se añadió el cliente {contador_iteraciones + 1} a la fila 3")
+    
+    # Mostrar las filas
+    print(f"Hay {len(cola1)} clientes en la fila 1: {cola1}")
+    print(f"Hay {len(cola2)} clientes en la fila 2: {cola2}")
+    print(f"Hay {len(cola3)} clientes en la fila 3: {cola3}")
+    
+    # Atender a un cliente
+    numSalida = randrange(1, 4)
+    if numSalida == 1:
+        if not cola1.isEmpty():
+            print(f"Cliente {cola1.peek()} atendido en fila 1.")
+            cola1.dequeue()
+        else:
+            print("Fila 1 está vacía, no se puede atender a nadie.")
+    elif numSalida == 2:
+        if not cola2.isEmpty():
+            print(f"Cliente {cola2.peek()} atendido en fila 2.")
+            cola2.dequeue()
+        else:
+            print("Fila 2 está vacía, no se puede atender a nadie.")
+    elif numSalida == 3:
+        if not cola3.isEmpty():
+            print(f"Cliente {cola3.peek()} atendido en fila 3.")
+            cola3.dequeue()
+        else:
+            print("Fila 3 está vacía, no se puede atender a nadie.")
+    
+    contador_iteraciones += 1
+
+# Cuando acaben las iteraciones, vaciar todas las filas
+print("Las 50 iteraciones han terminado, vaciando las filas restantes...")
+while not cola1.isEmpty():
+    print(f"Atendido cliente {cola1.peek()} en la fila 1")
+    cola1.dequeue()
+while not cola2.isEmpty():
+    print(f"Atendido cliente {cola2.peek()} en la fila 2")
+    cola2.dequeue()
+while not cola3.isEmpty():
+    print(f"Atendido cliente {cola3.peek()} en la fila 3")
+    cola3.dequeue()
