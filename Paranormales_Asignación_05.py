@@ -145,9 +145,23 @@ def sin_duplicados(lista_original):
     if primero not in resto:
         return [primero] + resto
     return resto
-#Alisha Nunez 24-0813
-# Ejemplo de uso con 3 números duplicados no contiguos
-lista = [4, 7, 2, 4, 9, 5, 7, 1, 5]
+#Eduardo Alba 24-0050/ Alisha Nunez 24-0813
+# Solicitar al usuario que ingrese elementos a la lista
+entrada = input("Introduce los elementos de la lista separados por comas: ")
+
+# Inicializa lista vacia
+lista = []
+
+# Convertir entrada en una lista
+for x in entrada.split(','):
+    x = x.strip()  # Eliminar espacios 
+    if x:  # Verificar que no esté vacío
+        try:
+            numero = int(x)  # Intentar convertir a entero
+            lista.append(numero)  # Agregar a la lista si es válido
+        except ValueError:
+            print(f"'{x}' no es un número entero válido y será ignorado.")
+
 print("Lista original:", lista)
 resultado = sin_duplicados(lista)
 print("Lista sin duplicados:", resultado)
