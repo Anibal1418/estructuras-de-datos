@@ -191,7 +191,10 @@ while not cola3.isEmpty():
     
 # Luis Muñoz 24-0345
 # Parte 2, ejercicio de una función recursiva
-print("Ejercicio 2, Función Recursiva")
+
+print("\nEjercicio 2, Función Recursiva")
+
+# Uso de una función recursiva para revisar y eliminar los elementos duplicados en una lista
 def sin_duplicados(lst, idx=0, res=None):
     if res is None:
         res = []
