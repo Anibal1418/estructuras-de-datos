@@ -188,3 +188,21 @@ while not cola2.isEmpty():
 while not cola3.isEmpty():
     print(f"Atendido cliente {cola3.peek()} en la fila 3")
     cola3.dequeue()
+    
+# Luis Muñoz 24-0345
+# Parte 2, ejercicio de una función recursiva
+print("Ejercicio 2, Función Recursiva")
+def sin_duplicados(lst, idx=0, res=None):
+    if res is None:
+        res = []
+    if idx == len(lst):
+        return res
+    if lst[idx] not in lst[:idx] and lst[idx] not in res:
+        res.append(lst[idx])
+    return sin_duplicados(lst, idx + 1, res)
+
+# Ejemplo de uso con 3 números duplicados no contiguos
+lista = [4, 7, 2, 4, 9, 5, 7, 1, 5]
+print("Lista original:", lista)
+resultado = sin_duplicados(lista)
+print("Lista sin duplicados:", resultado)
