@@ -1,20 +1,49 @@
 from collections import deque 
 
+'''
+Clase Grafo:
+Un grafo es una estructura que conecta elementos (nodos) a través de relaciones (aristas). 
+Aquí usamos un diccionario donde las claves son los nodos, y los valores son listas de sus vecinos.
+'''
+
 class Grafo(object):
     def __init__(self):
         self.relaciones = {}
     def __str__(self):
         return str(self.relaciones)
+    
+'''
+Función para agregar nodos:
+Cuando queremos incluir un nuevo nodo en el grafo, lo añadimos al diccionario con una lista vacía como valor. 
+Esto significa que, inicialmente, el nodo no tiene vecinos.
+'''
  
 def agregar(grafo, elemento):
     grafo.relaciones.update({elemento:[]})
 
+'''
+Función para conectar nodos (relacionar):
+Crea una relación entre dos nodos. Esta relación es bidireccional: 
+si A está conectado a B, también B estará conectado a A.
+'''
+
 def relacionar(grafo, elemento1, elemento2):
     relacionarUnilateral(grafo, elemento1, elemento2)
     relacionarUnilateral(grafo, elemento2, elemento1)
+
+'''
+Función auxiliar para una conexión unilateral:
+Sólo añade un vecino a la lista del nodo origen.
+'''
    
 def relacionarUnilateral(grafo, origen, destino):
     grafo.relaciones[origen].append(destino)
+
+'''
+Recorrido en profundidad primero (DFS):
+Este algoritmo explora lo más lejos posible desde un nodo inicial antes de retroceder. 
+Se asegura de no visitar nodos repetidos para evitar ciclos infinitos.
+'''
 
 def profundidadPrimero(grafo, elementoInicial, funcion, elementosRecorridos = []):
 
@@ -67,6 +96,11 @@ def anchoPrimero(grafo, elementoInicial, funcion, cola = deque(), elementosRecor
     #Este código se ejecuta sin importar si el elemento ya ha sido recorrido o no, asegurándose que todos los vecinos
     #De cada uno de los elementos sean chequeados, lo cual puede hacer el código más lento pero más preciso.
 
+
+'''
+Función para imprimir el nodo:
+Simplemente muestra el nodo actual en la consola.
+'''
 def imprimir (elemento):
     print (elemento)
 
