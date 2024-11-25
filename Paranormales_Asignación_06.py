@@ -160,3 +160,13 @@ La única relación de los elementos D y E es B así que por más que añadan a 
 La función termina imprimiendo D y E de manera natural, y finalmente retorna.'''
 
 #Como se puede observar, el resultado de ambas funciones es diferente, el por qué se explica más arriba.
+
+
+#Resumen de funcion Ancho Primera Alisha Nunez 24-0813
+# La función de recorrido en anchura (BFS), implementada aquí como anchoPrimero, explora un grafo de manera 
+# que primero visita todos los nodos vecinos inmediatos del nodo inicial antes de avanzar hacia los vecinos de esos nodos. 
+# Utiliza una cola (deque) para gestionar los nodos pendientes de visitar, asegurando que se procesan en orden FIFO 
+# (primero en entrar, primero en salir). A diferencia del recorrido en profundidad (DFS), que prioriza explorar lo más 
+# profundo posible antes de retroceder, BFS expande su búsqueda horizontalmente, lo que lo hace útil para encontrar el 
+# camino más corto en grafos no ponderados. En este código, la función asegura que cada nodo sea procesado solo una vez 
+# mediante una lista de nodos recorridos, evitando visitas redundantes o bucles infinitos en grafos cíclicos.
