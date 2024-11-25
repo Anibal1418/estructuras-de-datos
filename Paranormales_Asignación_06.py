@@ -64,50 +64,65 @@ def anchoPrimero(grafo, elementoInicial, funcion, cola = deque(), elementosRecor
     siguiente, y es por esto que se gana su nombre de "Ancho Primero".'''
     if len(cola) != 0 :
         anchoPrimero(grafo, cola.popleft(), funcion, cola, elementosRecorridos) 
+    #Este código se ejecuta sin importar si el elemento ya ha sido recorrido o no, asegurándose que todos los vecinos
+    #De cada uno de los elementos sean chequeados, lo cual puede hacer el código más lento pero más preciso.
 
 def imprimir (elemento):
     print (elemento)
 
 
-#Para crear el grafo, debemos primero inicializar el objeto y luego crear, agregar, y relacionar todos los elementos
-#Por separado
+#Para crear el grafo, debemos primero inicializar el objeto y luego crear, agregar, y relacionar todos los elementos por separado.
 
-grafo = Grafo() #Creamos objeto Grafo
+grafo = Grafo() #Creamos objeto Grafo.
 
-#Inicializamos los elementos que vamos a añadir
+#Inicializamos los elementos que vamos a añadir.
 A = 'A'
 B = 'B'
 C = 'C'
 D = 'D'
 E = 'E'
 
-#Agregamos los elementos al grafo en orden alfabético
+#Agregamos los elementos al grafo en orden alfabético.
 agregar(grafo, A)
 agregar(grafo, B)
 agregar(grafo, C)
 agregar(grafo, D)
 agregar(grafo, E)
 
-#Relacionamos los elementos como se nos proveyó en la asignación
+#Relacionamos los elementos como se nos proveyó en la asignación.
 relacionar(grafo, A, B)
 relacionar(grafo, A, C)
 relacionar(grafo, B, D)
 relacionar(grafo, B, E)
 
-#Llamamos la función profundidadPrimero empezando por el primero elemento añadido (A) y llamando la función imprimir
+#Llamamos la función profundidadPrimero empezando por el primero elemento añadido (A) y llamando la función imprimir.
 print("========================================")
 print("Recorremos Profundidad Primero")
 print("========================================")
 profundidadPrimero(grafo, A, imprimir)
 
-''''''
+'''Siguiendo la lógica explicada más arriba, esta función se ejecuta de la siguiente manera: 
+Primero se ejecuta con el elemento inicial A y aplica la función imprimir a este.
+Luego itera por sus vecinos empezando por el B que fue el primero con el que se relacionó y lo imprime en la terminal.
+Pero antes de pasar con el segundo vecino de A (C) la función chequea por los demás vecinos de B, que en este caso son D y E
+Empezando por D, la función se ejecuta y lo imprime a la terminal, y luego chequea por los vecinos de D.
+Ya que todos los vecinos de D (que en este caso es solo B) ya han sido chequeados, la función simplemente retorna.
+Luego pasamos al otro vecino de B (E) y lo imprime a la terminal, luego ejecutando un proceso similar.
+Después de terminar con los vecinos de B, la función vuelve a donde empezamos, A, y termina imprimiendo su último vecino C.
+Ya la función no debe preocuparse de más objetos por que ya todos han sido iterados, y la función retorna.'''
 
-#Llmamos la función anchoPrimero empezando por la misma A
+#Llamamos la función anchoPrimero empezando por la misma A.
 print("========================================")
 print("Recorremos Ancho Primero")
 print("========================================")
 anchoPrimero(grafo, A, imprimir)
 
-''''''
+'''Considerando la lógica explicada con anterioridad, la función anchoPrimero se ejecuta así:
+Empieza con A y lo imprime, luego añade todos sus vecinos inmediatos a la cola y los va ejecutando uno a uno.
+Los vecinos inmediatos de A son B y C, por lo que los termina imprimiendo primero y vacía la cola.
+Después la función iría por los elementos B y C, pero ya estos han sido impresos y añadidos a la lista de elementosRecorridos,
+por lo que la función los ignora.
+La única relación de los elementos D y E es B así que por más que añadan a B a la cola, este no va a imprimirse ni ejecutarse.
+La función termina imprimiendo D y E de manera natural, y finalmente retorna.'''
 
 #Como se puede observar, el resultado de ambas funciones es diferente, el por qué se explica más arriba.
