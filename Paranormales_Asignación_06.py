@@ -39,8 +39,13 @@ Sólo añade un vecino a la lista del nodo origen.
 def relacionarUnilateral(grafo, origen, destino):
     grafo.relaciones[origen].append(destino)
 
+<<<<<<< HEAD
 '''
 Recorrido en profundidad primero (DFS): Yordi Polanco 24-0937
+=======
+''' Yordi Polanco 24-0937
+Recorrido en profundidad primero (DFS):
+>>>>>>> 59ba842252fa3dbe419106ed5c89fa3a47ddb648
 Este algoritmo explora lo más lejos posible desde un nodo inicial antes de retroceder. 
 Se asegura de no visitar nodos repetidos para evitar ciclos infinitos.
 '''
@@ -63,6 +68,7 @@ def profundidadPrimero(grafo, elementoInicial, funcion, elementosRecorridos = []
     con el que se está ejecutando, pero antes de pasar al siguiente vecino del elemento inicial, la función va a 
     recurrirse con todos los vecinos del vecino antes de retornar al elemento original. A esto se refiere con
     recorriendo el Grafo en "profundidad", ya que limpia cada "rama" del elemento en cuestión antes de pasar a la próxima.'''
+    
     for vecino in grafo.relaciones[elementoInicial]:
         profundidadPrimero(grafo, vecino, funcion, elementosRecorridos)
 
@@ -72,7 +78,7 @@ def anchoPrimero(grafo, elementoInicial, funcion, cola = deque(), elementosRecor
 
     '''El primer paso es muy similar al anterior, con la diferencia de que en vez de retornar inmediatamente encuentre
     un objeto repetido, la función simplemente no va a ejecutar este bloque condicional, pero sí la última línea de código
-    de la función.'''
+    de la función. Yordi Polanco 24-0937'''
     if not elementoInicial in elementosRecorridos:
 
         '''Después, aplica la función al elemento en cuestión, igual a la función profundidadPrimero.'''
