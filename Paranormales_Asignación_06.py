@@ -40,7 +40,7 @@ def relacionarUnilateral(grafo, origen, destino):
     grafo.relaciones[origen].append(destino)
 
 '''
-Recorrido en profundidad primero (DFS):
+Recorrido en profundidad primero (DFS): Yordi Polanco 24-0937
 Este algoritmo explora lo más lejos posible desde un nodo inicial antes de retroceder. 
 Se asegura de no visitar nodos repetidos para evitar ciclos infinitos.
 '''
@@ -66,6 +66,8 @@ def profundidadPrimero(grafo, elementoInicial, funcion, elementosRecorridos = []
     for vecino in grafo.relaciones[elementoInicial]:
         profundidadPrimero(grafo, vecino, funcion, elementosRecorridos)
 
+'''Recorrido en ancho primero (BFS): Eduardo Alba 24-0050'''
+
 def anchoPrimero(grafo, elementoInicial, funcion, cola = deque(), elementosRecorridos = []):
 
     '''El primer paso es muy similar al anterior, con la diferencia de que en vez de retornar inmediatamente encuentre
@@ -73,13 +75,13 @@ def anchoPrimero(grafo, elementoInicial, funcion, cola = deque(), elementosRecor
     de la función.'''
     if not elementoInicial in elementosRecorridos:
 
-        '''En segundo lugar, aplica la función al elemento en cuestión, igual a la función profundidadPrimero.'''
+        '''Después, aplica la función al elemento en cuestión, igual a la función profundidadPrimero.'''
         funcion(elementoInicial)
 
         '''Agrega el elemento a la lista de Recorridos para asegurar que no pasemos por ahí otra vez.'''
         elementosRecorridos.append(elementoInicial)
 
-        '''Aquí comienzan las diferencias principales. En esta functión, a parte de la lista de elementos Recorridos, creamos
+        '''Aquí comienzan las diferencias principales. En esta función, a parte de la lista de elementos Recorridos, creamos
         una cola, en la cual estamos añadiendo todos los vecinos de cada elemento a partir del método extend. Este código
         hace un chequeo condicional de que el elemento tenga relaciones en primer lugar, y luego las añade todas en el orden
         en el que están al mismo tiempo.'''
@@ -135,7 +137,8 @@ print("Recorremos Profundidad Primero")
 print("========================================")
 profundidadPrimero(grafo, A, imprimir)
 
-'''Siguiendo la lógica explicada más arriba, esta función se ejecuta de la siguiente manera: 
+''' Explicación del recorrido función profundidadPrimero Luis Sánchez 24-0057
+Siguiendo la lógica explicada más arriba, esta función se ejecuta de la siguiente manera: 
 Primero se ejecuta con el elemento inicial A y aplica la función imprimir a este.
 Luego itera por sus vecinos empezando por el B que fue el primero con el que se relacionó y lo imprime en la terminal.
 Pero antes de pasar con el segundo vecino de A (C) la función chequea por los demás vecinos de B, que en este caso son D y E
@@ -151,7 +154,8 @@ print("Recorremos Ancho Primero")
 print("========================================")
 anchoPrimero(grafo, A, imprimir)
 
-'''Considerando la lógica explicada con anterioridad, la función anchoPrimero se ejecuta así:
+''' Explicación del recorrido función anchoPrimero Luis Sánchez 24-0057
+Considerando la lógica explicada con anterioridad, la función anchoPrimero se ejecuta así:
 Empieza con A y lo imprime, luego añade todos sus vecinos inmediatos a la cola y los va ejecutando uno a uno.
 Los vecinos inmediatos de A son B y C, por lo que los termina imprimiendo primero y vacía la cola.
 Después la función iría por los elementos B y C, pero ya estos han sido impresos y añadidos a la lista de elementosRecorridos,
@@ -162,7 +166,7 @@ La función termina imprimiendo D y E de manera natural, y finalmente retorna.''
 #Como se puede observar, el resultado de ambas funciones es diferente, el por qué se explica más arriba.
 
 
-#Resumen de funcion Ancho Primera Alisha Nunez 24-0813
+# Resumen de funcion Ancho Primera Alisha Nunez 24-0813
 # La función de recorrido en anchura (BFS), implementada aquí como anchoPrimero, explora un grafo de manera 
 # que primero visita todos los nodos vecinos inmediatos del nodo inicial antes de avanzar hacia los vecinos de esos nodos. 
 # Utiliza una cola (deque) para gestionar los nodos pendientes de visitar, asegurando que se procesan en orden FIFO 
@@ -171,7 +175,7 @@ La función termina imprimiendo D y E de manera natural, y finalmente retorna.''
 # camino más corto en grafos no ponderados. En este código, la función asegura que cada nodo sea procesado solo una vez 
 # mediante una lista de nodos recorridos, evitando visitas redundantes o bucles infinitos en grafos cíclicos.
 
-#Resumen de funcion Profundidad Primera Luis Munoz 24-0345
+# Resumen de funcion Profundidad Primera Luis Munoz 24-0345
 # Esta función implementa un recorrido en profundidad (Depth-First Search, DFS) en un grafo. Comienza en un nodo inicial
 # y explora recursivamente cada uno de sus vecinos antes de pasar al siguiente. Primero verifica si el nodo ya ha sido
 # recorrido, en cuyo caso termina el procesamiento para ese nodo. Si no, ejecuta una función específica sobre el nodo,
