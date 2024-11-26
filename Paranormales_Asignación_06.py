@@ -170,3 +170,10 @@ La función termina imprimiendo D y E de manera natural, y finalmente retorna.''
 # profundo posible antes de retroceder, BFS expande su búsqueda horizontalmente, lo que lo hace útil para encontrar el 
 # camino más corto en grafos no ponderados. En este código, la función asegura que cada nodo sea procesado solo una vez 
 # mediante una lista de nodos recorridos, evitando visitas redundantes o bucles infinitos en grafos cíclicos.
+
+#Resumen de funcion Profundidad Primera Luis Munoz 24-0345
+# Esta función implementa un recorrido en profundidad (Depth-First Search, DFS) en un grafo. Comienza en un nodo inicial
+# y explora recursivamente cada uno de sus vecinos antes de pasar al siguiente. Primero verifica si el nodo ya ha sido
+# recorrido, en cuyo caso termina el procesamiento para ese nodo. Si no, ejecuta una función específica sobre el nodo,
+# lo marca como visitado añadiéndolo a una lista de elementos recorridos, y luego procede a explorar sus vecinos.
+# Este enfoque garantiza que cada rama del grafo se recorre completamente antes de regresar al nodo original.
