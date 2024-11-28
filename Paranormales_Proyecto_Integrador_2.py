@@ -36,3 +36,22 @@ edge_ab = Edge(node_a, node_b)
 # Añadir la arista tanto al nodo A como al nodo B
 node_a.connections.append(edge_ab)
 node_b.connections.append(edge_ab)
+
+# Draft de clase que podría agregar grafos y aristas
+
+class Grafo(object):
+    def __init__(self):
+        self.relaciones = {}
+
+def __str__(self):
+    return str(self.relaciones)
+ 
+def agregar(grafo, nodo):
+    grafo.relaciones.update({nodo:[]})
+
+def relacionar(grafo, elemento1, elemento2):
+    relacionarUnilateral(grafo, elemento1, elemento2)
+    relacionarUnilateral(grafo, elemento2, elemento1)
+   
+def relacionarUnilateral(grafo, origen, destino):
+    grafo.relaciones[origen].append(destino)
