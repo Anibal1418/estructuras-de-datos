@@ -10,6 +10,7 @@ class ColaNotificaciones:
     # Construye una cola vacía
     def __init__(self):
         self.notis = []
+        self.pila_temp = [] # Nueva pila para notificaciones temporales - Agregado por Yordi Polanco 24-0937
 
     # Representa el contenido de la cola para imprimir
     def __repr__(self):
@@ -20,16 +21,30 @@ class ColaNotificaciones:
     def __len__(self):
         return len(self.notis)
     
-    # Añade un elemento a la cola
+    # Añade un elemento a la cola - Aquí comienza el trabajo de Yordi Polanco 24-0937
     def enqueue(self, time, app, message):
-        self.notis.append({"hora":time, "aplicación":app, "mensaje":message})
+        # Convertir la hora a minutos para facilitar la comparación
+        def hora_a_minutos(hora):
+            horas, minutos = map(int, hora.split(':'))
+            return horas * 60 + minutos
 
-    # Extrae y elimina un elemento de la cola
-    def dequeue(self):
-        if self.isEmpty(): # Sube un error en caso de que esté vacía
-            raise IndexError('Cola vacía')
-        else:
-            return self.notis.pop(0)
+        noti = {"hora": time, "aplicación": app, "mensaje": message}
+        self.notis.append(noti)
+
+        # Verificar y almacenar en la pila temporal si está entre 11:43 y 15:57
+        hora_actual = hora_a_minutos(time)
+        hora_inicio = hora_a_minutos("11:43")
+        hora_fin = hora_a_minutos("15:57")
+
+        if hora_inicio <= hora_actual <= hora_fin:
+            self.pila_temp.append(noti)
+
+    # Método para mostrar las notificaciones almacenadas temporalmente
+    def mostrar_notificaciones_temporales(self):
+        print("Notificaciones entre 11:43 y 15:57:")
+        for noti in reversed(self.pila_temp):
+            print(f"Hora: {noti['hora']}, Aplicación: {noti['aplicación']}, Mensaje: {noti['mensaje']}")
+        print(f"Total de notificaciones en este rango: {len(self.pila_temp)}") # Aquí termina el trabajo de Yordi Polanco 24-0937
 
     # Devuelve el primer elemento de la cola sin eliminarlo
     def peek(self):
@@ -72,6 +87,8 @@ cola.enqueue("17:35", "Tiktok", "User te ha enviado un mensaje")
 cola.enqueue("18:00", "Youtube", "KSI ha subido un video")
 cola.enqueue("19:23", "Youtube", "MrBeast ha subido un video")
 cola.enqueue("20:20", "Twitter", "User ha publicado un tweet")
+cola.enqueue("11:50", "WhatsApp", "Mensaje importante")
+cola.enqueue("14:15", "Telegram", "Nueva actualización")
 cola.enqueue("21:59", "Instagram", "User te ha enviado un reel")
 cola.enqueue("22:35", "Twitter", "Python Account ha publicado un tweet")
 
@@ -82,3 +99,6 @@ print(cola) # Cola después
 
 print('\n')
 cola.verNotisTwitter() # Imprime por si mismo los elementos deseados
+
+# Mostrar notificaciones temporales - Agregado por Yordi Polanco 24-0937
+cola.mostrar_notificaciones_temporales()
