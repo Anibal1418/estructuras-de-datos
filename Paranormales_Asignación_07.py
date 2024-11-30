@@ -103,4 +103,5 @@ print('\n')
 cola.verNotisTwitter() # Imprime por si mismo los elementos deseados
 
 # Mostrar notificaciones temporales - Agregado por Yordi Polanco 24-0937
+print('\n')
 cola.mostrar_notificaciones_temporales()
