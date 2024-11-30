@@ -44,7 +44,9 @@ class ColaNotificaciones:
         print("Notificaciones entre 11:43 y 15:57:")
         for noti in reversed(self.pila_temp):
             print(f"Hora: {noti['hora']}, Aplicación: {noti['aplicación']}, Mensaje: {noti['mensaje']}")
-        print(f"Total de notificaciones en este rango: {len(self.pila_temp)}") # Aquí termina el trabajo de Yordi Polanco 24-0937
+        print(f"Total de notificaciones en este rango: {len(self.pila_temp)}") 
+        
+    # Aquí termina el trabajo de Yordi Polanco 24-0937
 
     # Devuelve el primer elemento de la cola sin eliminarlo
     def peek(self):
