@@ -20,8 +20,7 @@ class ColaNotificaciones:
     def __len__(self):
         return len(self.notis)
     
-    # Yordi Polanco 24-0937
-    # Añade un elemento a la cola 
+    # Añade un elemento a la cola - Aquí comienza el trabajo de Yordi Polanco 24-0937 and Alisha Nunez 24-0813
     def enqueue(self, time, app, message):
         # Convertir la hora a minutos para facilitar la comparación
         def hora_a_minutos(hora):
@@ -46,7 +45,7 @@ class ColaNotificaciones:
             print(f"[{noti['hora']}] {noti['aplicación']}: {noti['mensaje']}")
         print(f"Total de notificaciones en este rango: {len(self.pila_temp)}") 
         
-    # Aquí termina el trabajo de Yordi Polanco 24-0937
+    # Aquí termina el trabajo de Yordi Polanco 24-0937 and Alisha Nunez 24-0813
 
     # Devuelve el primer elemento de la cola sin eliminarlo
     def peek(self):
@@ -81,7 +80,7 @@ class ColaNotificaciones:
                 temp.enqueue(self.notis[i]["hora"], self.notis[i]["aplicación"], self.notis[i]["mensaje"])
         print(temp)
 
- #- Luis Muñoz 24-0345
+ #- Luis Muñoz 24-0345 and Alisha Nunez 24-0813
 cola = ColaNotificaciones()
 
 cola.enqueue("15:35", "Facebook", "Un amigo te ha enviado un mensaje")
