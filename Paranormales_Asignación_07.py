@@ -5,10 +5,15 @@ class ColaNotificaciones:
         self.notis = []
         self.pila_temp = [] # Pila para notificaciones temporales - Agregado por Yordi Polanco 24-0937
 
-    # Representa el contenido de la cola para imprimir
+    # Representa el contenido de la cola para imprimir -Eduardo Alba 24-0050
     def __repr__(self):
-        return "\n".join(map(str, self.notis))
-    '''Favor buscar una forma para imprimir la cola de manera más estética'''
+        if not self.notis:
+            return "La cola está vacía."
+        resultado = "Cola de Notificaciones:\n"
+        for noti in self.notis:
+            resultado += f"[{noti['hora']}] {noti['aplicación']}: {noti['mensaje']}\n"
+        return resultado.strip()  
+
 
     # Devuelve la longitud o número de elementos de la cola
     def __len__(self):
