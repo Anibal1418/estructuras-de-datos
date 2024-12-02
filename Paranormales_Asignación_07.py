@@ -1,10 +1,3 @@
-'''Escriba un programa en Python que incluya una cola con las notificaciones de las aplicaciones de redes sociales de un Smartphone, 
-de las cual se cuenta con la hora de la notificación, la aplicación que la emitió y el mensaje, para resolver las siguientes actividades:
-
-1. escribir una función que elimine de la cola todas las notificaciones de Facebook;
-2. escribir una función que muestre todas las notificaciones de Twitter, cuyo mensaje incluya la palabra ‘Python’, si perder datos en la cola;
-3. utilizar una pila para almacenar temporáneamente las notificaciones producidas entre las 11:43 y las 15:57, y determinar cuántas son'''
-
 class ColaNotificaciones:
 
     # Construye una cola vacía
@@ -94,14 +87,17 @@ cola.enqueue("14:15", "Telegram", "Nueva actualización")
 cola.enqueue("21:59", "Instagram", "User te ha enviado un reel")
 cola.enqueue("22:35", "Twitter", "Python Account ha publicado un tweet")
 
+# Impresión de las funciones - Luis Muñoz 24-0345
+print("\nCola Antes de Eliminar Notificaciones de Facebook:")
 print(cola) # Cola antes
 cola.borrarNotisFacebook()
-print('\n')
+print("\nCola Después de Eliminar Notificaciones de Facebook:")
 print(cola) # Cola después
 
-print('\n')
+print("\nNotificaciones de Twitter con la palabra 'Python':")
 cola.verNotisTwitter() # Imprime por si mismo los elementos deseados
 
-# Mostrar notificaciones temporales - Agregado por Yordi Polanco 24-0937
-print('\n')
+# Mostrar notificaciones temporales
+print()
 cola.mostrar_notificaciones_temporales()
+print()
