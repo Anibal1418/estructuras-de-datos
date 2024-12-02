@@ -3,7 +3,7 @@ class ColaNotificaciones:
     # Construye una cola vacía
     def __init__(self):
         self.notis = []
-        self.pila_temp = [] # Nueva pila para notificaciones temporales - Agregado por Yordi Polanco 24-0937
+        self.pila_temp = [] # Pila para notificaciones temporales - Agregado por Yordi Polanco 24-0937
 
     # Representa el contenido de la cola para imprimir
     def __repr__(self):
@@ -52,6 +52,7 @@ class ColaNotificaciones:
     def isEmpty(self):
         return self.notis == []
     
+    # Luis Sánchez 24-0057
     # Implementación del primer ejercicio, función que borra todas las notificaciones de Facebook
     def borrarNotisFacebook(self):
 
@@ -64,6 +65,7 @@ class ColaNotificaciones:
         for element in reversed(ilist):
             self.notis.pop(element)
 
+    # Luis Sánchez 24-0057
     # Implementación del segundo ejercicio, función que muestra las notificaciones de Twitter con "Python" en su mensaje
     def verNotisTwitter(self):
         for i in range (0, self.__len__()):
