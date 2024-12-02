@@ -74,15 +74,16 @@ class ColaNotificaciones:
     # Luis Sánchez 24-0057
     # Implementación del segundo ejercicio, función que muestra las notificaciones de Twitter con "Python" en su mensaje
     def verNotisTwitter(self):
-        temp = ColaNotificaciones()
-        for i in range (0, self.__len__()):
+        temp = ColaNotificaciones() # Crear cola temporal
+        for i in range (0, self.__len__()): # Por cada mensaje que venga de la aplicación "Twitter" y tenga "Python" en su mensaje
             if(self.notis[i]["aplicación"] == "Twitter" and ("Python" in self.notis[i]["mensaje"])):
-                temp.enqueue(self.notis[i]["hora"], self.notis[i]["aplicación"], self.notis[i]["mensaje"])
-        print(temp)
+                temp.enqueue(self.notis[i]["hora"], self.notis[i]["aplicación"], self.notis[i]["mensaje"]) # Añadirlo a la cola temporal
+        print(temp) # Imprimir la cola temporal
 
  #- Luis Muñoz 24-0345 and Alisha Nunez 24-0813
 cola = ColaNotificaciones()
 
+# Conjunto de notificaciones
 cola.enqueue("15:35", "Facebook", "Un amigo te ha enviado un mensaje")
 cola.enqueue("16:02", "Twitter", "Python Account ha publicado un tweet")
 cola.enqueue("16:23", "Instagram", "User ha subido una foto después de mucho tiempo")
@@ -105,9 +106,9 @@ print("\nCola después de eliminar notificaciones de Facebook:")
 print(cola) # Cola después
 
 print("\nNotificaciones de Twitter con la palabra 'Python':")
-cola.verNotisTwitter() # Imprime por si mismo los elementos deseados
+cola.verNotisTwitter() # Imprime por si mismo los elementos deseados, ya que es una función de lectura
 
 # Mostrar notificaciones temporales
 print()
-cola.mostrar_notificaciones_temporales()
+cola.mostrar_notificaciones_temporales() # Imprime por sí mismo todo lo que necesita
 print()
