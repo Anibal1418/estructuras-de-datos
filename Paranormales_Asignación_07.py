@@ -5,11 +5,12 @@ class ColaNotificaciones:
         self.notis = []
         self.pila_temp = [] # Pila para notificaciones temporales - Agregado por Yordi Polanco 24-0937
 
-    # Representa el contenido de la cola para imprimir -Eduardo Alba 24-0050
+    #- Eduardo Alba 24-0050
+    # Representa el contenido de la cola para imprimir
     def __repr__(self):
         if not self.notis:
             return "La cola está vacía."
-        resultado = "Cola de Notificaciones:\n"
+        resultado = "\n"
         for noti in self.notis:
             resultado += f"[{noti['hora']}] {noti['aplicación']}: {noti['mensaje']}\n"
         return resultado.strip()  
@@ -19,7 +20,8 @@ class ColaNotificaciones:
     def __len__(self):
         return len(self.notis)
     
-    # Añade un elemento a la cola - Aquí comienza el trabajo de Yordi Polanco 24-0937
+    # Yordi Polanco 24-0937
+    # Añade un elemento a la cola 
     def enqueue(self, time, app, message):
         # Convertir la hora a minutos para facilitar la comparación
         def hora_a_minutos(hora):
@@ -41,7 +43,7 @@ class ColaNotificaciones:
     def mostrar_notificaciones_temporales(self):
         print("Notificaciones entre 11:43 y 15:57:")
         for noti in reversed(self.pila_temp):
-            print(f"Hora: {noti['hora']}, Aplicación: {noti['aplicación']}, Mensaje: {noti['mensaje']}")
+            print(f"[{noti['hora']}] {noti['aplicación']}: {noti['mensaje']}")
         print(f"Total de notificaciones en este rango: {len(self.pila_temp)}") 
         
     # Aquí termina el trabajo de Yordi Polanco 24-0937
@@ -73,9 +75,11 @@ class ColaNotificaciones:
     # Luis Sánchez 24-0057
     # Implementación del segundo ejercicio, función que muestra las notificaciones de Twitter con "Python" en su mensaje
     def verNotisTwitter(self):
+        temp = ColaNotificaciones()
         for i in range (0, self.__len__()):
             if(self.notis[i]["aplicación"] == "Twitter" and ("Python" in self.notis[i]["mensaje"])):
-                print(self.notis[i])
+                temp.enqueue(self.notis[i]["hora"], self.notis[i]["aplicación"], self.notis[i]["mensaje"])
+        print(temp)
 
  #- Luis Muñoz 24-0345
 cola = ColaNotificaciones()
@@ -95,10 +99,10 @@ cola.enqueue("21:59", "Instagram", "User te ha enviado un reel")
 cola.enqueue("22:35", "Twitter", "Python Account ha publicado un tweet")
 
 # Impresión de las funciones
-print("\nCola Antes de Eliminar Notificaciones de Facebook:")
+print("\nCola antes de eliminar notificaciones de Facebook:")
 print(cola) # Cola antes
 cola.borrarNotisFacebook()
-print("\nCola Después de Eliminar Notificaciones de Facebook:")
+print("\nCola después de eliminar notificaciones de Facebook:")
 print(cola) # Cola después
 
 print("\nNotificaciones de Twitter con la palabra 'Python':")
