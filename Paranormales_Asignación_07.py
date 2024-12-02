@@ -72,7 +72,7 @@ class ColaNotificaciones:
             if(self.notis[i]["aplicación"] == "Twitter" and ("Python" in self.notis[i]["mensaje"])):
                 print(self.notis[i])
 
-
+ #- Luis Muñoz 24-0345
 cola = ColaNotificaciones()
 
 cola.enqueue("15:35", "Facebook", "Un amigo te ha enviado un mensaje")
@@ -89,7 +89,7 @@ cola.enqueue("14:15", "Telegram", "Nueva actualización")
 cola.enqueue("21:59", "Instagram", "User te ha enviado un reel")
 cola.enqueue("22:35", "Twitter", "Python Account ha publicado un tweet")
 
-# Impresión de las funciones - Luis Muñoz 24-0345
+# Impresión de las funciones
 print("\nCola Antes de Eliminar Notificaciones de Facebook:")
 print(cola) # Cola antes
 cola.borrarNotisFacebook()
