@@ -9,15 +9,7 @@ a este nodo.
 class Interseccion:
     def __init__(self, id):
         self.id = id
-        self.conexiones = []
-    
-def calcDistancia (origen, destino):
-    for conexionA in origen.conexiones: 
-        if conexionA.destination == destino:
-            return conexionA.distancia
-        elif conexionA.origen == destino:
-            return conexionA.distancia
-    return None
+        self.conexiones = []  
     
 '''
 La clase Edge representa una artista en el grafo. 
@@ -33,21 +25,47 @@ class Calle:
         self.distancia = kilometraje
 
 '''
-Se debe buscar una manera para interrelacionar estas clases de manera que sean parte de un solo grafo llamado GPS
-en el cual podemos hacer funciones de búsqueda y conexión.
+Esta son funciones independiente que manipulan nodos y calles
 '''
+
+def conectar(origen, calle, destino):
+    if calle not in origen.conexiones:
+        origen.conexiones.append(calle)
+    if calle not in destino.conexiones:
+        destino.conexiones.append(calle)
+
+def estaConectado (origen, destino):
+    # Primero chequea por conexion Directa
+    for conexionA in origen.conexiones:
+        if conexionA.destination == destino:
+            return True
+        elif conexionA.origen == destino:
+            return True
+    
+    return False
+
+def calcDistancia (origen, destino):
+    for conexionA in origen.conexiones: 
+        if conexionA.destination == destino:
+            return conexionA.distancia
+        elif conexionA.origen == destino:
+            return conexionA.distancia
+    return None
+
 
 # Ejemplo de Construcción
 interseccion_a = Interseccion("A")
 interseccion_b = Interseccion("B")
+interseccion_c = Interseccion("C")
 
 calle_ab = Calle("Máximo Gómez", interseccion_a, interseccion_b, 10)
+calle_bc = Calle("Gustavo Mejía Ricart", interseccion_b, interseccion_c, 5)
 
 # Añadir la arista tanto al nodo A como al nodo B
-interseccion_a.conexiones.append(calle_ab)
-interseccion_b.conexiones.append(calle_ab)
+conectar(interseccion_a, calle_ab, interseccion_b)
+conectar(interseccion_b, calle_bc, interseccion_c)
 
-# Calcular la distancia de la calle común que tienen both ways
+# Calcular la distancia entre dos intersecciones y las calles que las une
 print(calcDistancia(interseccion_a, interseccion_b))
 print(calcDistancia(interseccion_b, interseccion_a))
 
@@ -63,10 +81,45 @@ class GPS:
         return str(self.intersecciones)
     
     def agregar(self, interseccion):
-        self.intersecciones.append(interseccion)
+        if interseccion not in self.intersecciones:
+            self.intersecciones.append(interseccion)
+        
+    '''CONSTRUIR una funcion que devuelva todos los caminos entre dos nodos'''
+    # def findPaths(self, start, end):
+
+    """A partir de la funcion anterior, construir una funcion que encuentre el camino mas corto entre dos intersecciones"""
+    # camino más corto == menos nodos
+    # def shortestPath(self, start, end):
+
+
+    # Consulta si el grafo está vacío
+    def isEmpty(self):
+        return self.intersecciones == []
+
+    # Consulta si la interseccion existe en el grafo
+    def existeInterseccion(self, interseccion):
+        return interseccion in self.intersecciones
+
+    # Consulta si la calle existe en el grafo
+    def existeCalle(self, calle):
+        for interseccion in self.intersecciones:
+            for conexion in interseccion.conexiones:
+                if(calle == conexion):
+                    return True
+        return False
 
 
 gps = GPS()
+#print(gps.isEmpty())
 
 gps.agregar(interseccion_a)
 gps.agregar(interseccion_b)
+
+#print(gps.isEmpty())
+
+#print(gps.existeInterseccion(interseccion_a))
+#print(gps.existeCalle(calle_ab))
+
+print(estaConectado(interseccion_a, interseccion_b))
+print(estaConectado(interseccion_b, interseccion_c))
+print(estaConectado(interseccion_a, interseccion_c))
