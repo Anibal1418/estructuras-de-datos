@@ -92,7 +92,32 @@ class GPS:
             self.intersecciones[interseccion] = [interseccion.conexiones]
         
     '''CONSTRUIR una funcion que devuelva todos los caminos entre dos nodos'''
-    # def findPaths(self, start, end):
+    # Función para encontrar todos los caminos posibles entre dos nodos - Luis Muñoz 24-0345
+    def findPaths(self, start, end):
+        # Función recursiva para realizar DFS y buscar caminos
+        def dfs(current, visited, path, all_paths):
+            visited.add(current)  # Marcar nodo actual como visitado
+            path.append(current)  # Agregar nodo al camino actual
+
+            if current == end:  # Si llegamos al destino, guardamos el camino
+                all_paths.append(path[:])  # Guardar una copia del camino actual
+            else:
+                # Explorar nodos vecinos
+                for conexion in current.conexiones:
+                    next_interseccion = conexion.destination if conexion.origen == current else conexion.origen
+                    if next_interseccion not in visited:
+                        dfs(next_interseccion, visited, path, all_paths)
+
+            path.pop()  # Retroceder al nodo anterior
+            visited.remove(current)  # Desmarcar nodo actual
+
+        # Si no están conectados, no hay caminos posibles
+        if not estaConectado(start, end):
+            return []
+
+        all_paths = []  # Lista para almacenar todos los caminos encontrados
+        dfs(start, set(), [], all_paths)  # Llamada inicial al DFS
+        return all_paths
 
     """A partir de la funcion anterior, construir una funcion que encuentre el camino mas corto entre dos intersecciones"""
     # camino más corto == menos nodos
