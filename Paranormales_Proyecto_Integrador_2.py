@@ -121,30 +121,55 @@ class GPS:
 
     # Implementación de shortestPath por Yordi Polanco | 24-0937
     def shortestPath(self, start, end):
-        all_paths = self.findPaths(start, end) # Obtener todos los caminos posibles entre start y end
-        if not all_paths:  # Si no hay caminos, devolver None
-            return None    # Verificar si la lista de caminos está vacía
-        
+        """
+        Encuentra el camino más corto entre dos intersecciones usando todos los
+        caminos posibles obtenidos por findPaths.
+        """
+        # Obtener todos los caminos posibles entre start y end
+        print(f"Buscando todos los caminos posibles entre {start.id} y {end.id}...")
+        all_paths = self.findPaths(start, end)
+
+        # Si no hay caminos, devolver None
+        if not all_paths:  # Verificar si la lista de caminos está vacía
+            print(f"No se encontraron caminos entre {start.id} y {end.id}.")
+            return None
+
+        print(f"Se encontraron {len(all_paths)} camino(s) entre {start.id} y {end.id}.")
+        print("Caminos encontrados:")
+        for path in all_paths:
+            print(" -> ".join([i.id for i in path]))
+
         # Inicializar variables para almacenar el camino más corto y su distancia
-        shortest_path = None
-        shortest_distance = float('inf')
+        shortest_path = None  # Aquí almacenaremos el camino más corto encontrado
+        shortest_distance = float('inf')  # Se usa infinito como referencia inicial
 
         # Iterar sobre todos los caminos encontrados
-        for path in all_paths:
-            distance = 0
+        print("\nCalculando la distancia de cada camino...")
+        for idx, path in enumerate(all_paths):
+            distance = 0  # Inicializar la distancia del camino actual
+
             # Calcular la distancia total del camino actual
+            print(f"Camino {idx + 1}: {' -> '.join([i.id for i in path])}")
             for i in range(len(path) - 1):
-                # Buscar la distancia entre nodos consecutivos
+                # Buscar la distancia entre nodos consecutivos en el camino
                 for conexion in path[i].conexiones:
                     # Verificar si la conexión une los nodos consecutivos
                     if conexion.destination == path[i + 1] or conexion.origen == path[i + 1]:
-                        distance += conexion.distancia # Sumar la distancia de la calle
-                        break # Salir del bucle interno porque ya encontramos la conexión
+                        distance += conexion.distancia  # Sumar la distancia de la calle
+                        print(f"  - De {path[i].id} a {path[i + 1].id}: {conexion.distancia} km")
+                        break  # Salir del bucle interno porque ya encontramos la conexión
+            print(f"  Distancia total del camino {idx + 1}: {distance} km")
+
             # Comparar la distancia actual con la más corta encontrada hasta ahora
             if distance < shortest_distance:
-                shortest_distance = distance # Actualizar la distancia más corta
-                shortest_path = path # Actualizar el camino más corto
-         # Devolver el camino más corto y su distancia total
+                print(f"  -> Este es el camino más corto hasta ahora.")
+                shortest_distance = distance  # Actualizar la distancia más corta
+                shortest_path = path  # Actualizar el camino más corto
+
+        # Devolver el camino más corto y su distancia total
+        print("\nEl camino más corto encontrado es:")
+        print(" -> ".join([i.id for i in shortest_path]))
+        print(f"Distancia total: {shortest_distance} km")
         return shortest_path, shortest_distance
     # Fin de la sección desarrollada por Yordi Polanco | 24-0937
 
