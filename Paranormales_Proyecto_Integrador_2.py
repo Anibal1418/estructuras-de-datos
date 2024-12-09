@@ -23,6 +23,7 @@ class Calle:
         self.origen = origin
         self.destination = destination
         self.distancia = kilometraje
+        conectar(origin, self, destination)
 
 '''
 Esta son funciones independiente que manipulan nodos y calles
@@ -55,25 +56,6 @@ def calcDistancia (origen, destino):
         elif conexionA.origen == destino:
             return conexionA.distancia
     return None
-
-
-# Ejemplo de Construcción
-interseccion_a = Interseccion("A")
-interseccion_b = Interseccion("B")
-interseccion_c = Interseccion("C")
-
-calle_ab = Calle("Máximo Gómez", interseccion_a, interseccion_b, 10)
-calle_bc = Calle("Gustavo Mejía Ricart", interseccion_b, interseccion_c, 5)
-
-# Añadir la arista tanto al nodo A como al nodo B
-conectar(interseccion_a, calle_ab, interseccion_b)
-conectar(interseccion_b, calle_bc, interseccion_c)
-
-# Calcular la distancia entre dos intersecciones y las calles que las une
-# Ambas deben imprimir 10, debido a que están conectadas por medio de arista de 10 de longitud
-print(calcDistancia(interseccion_a, interseccion_b))
-print(calcDistancia(interseccion_b, interseccion_a))
-
 
 # ESTA ES LA CLASE GPS. Básicamente puede ser o una lista de nodos, o un diccionario de nodos accedidos por nombre.
 # Aquí es adonde se van a administrar las funciones de nodos conectados, como búsqueda de caminos, cálculos de distancias, etc.
@@ -192,14 +174,51 @@ class GPS:
 
 gps = GPS()
 
+interseccion_a = Interseccion("A")
+interseccion_b = Interseccion("B")
+interseccion_c = Interseccion("C")
+interseccion_d = Interseccion("D")
+interseccion_e = Interseccion("E")
+interseccion_f = Interseccion("F")
+
+calle_ab = Calle("Máximo Gómez", interseccion_a, interseccion_b, 10)
+calle_bc = Calle("Gustavo Mejía Ricart", interseccion_b, interseccion_c, 5)
+
+calle_ad = Calle("27 de Febrero", interseccion_a, interseccion_d, 25)
+calle_bd = Calle("Gustavo Mejía Ricart", interseccion_b, interseccion_c, 5)
+
+calle_ae = Calle("Avenida México", interseccion_a, interseccion_e, 7)
+calle_ef = Calle("Calle César Nicolas Penson", interseccion_e, interseccion_f, 12)
+
+calle_bf = Calle("Avenida Roberto Pastoriza", interseccion_b, interseccion_f, 15)
+calle_de = Calle("Avenida Abraham Lincoln", interseccion_d, interseccion_e, 10)
+calle_ce = Calle("Calle Ramón Santana", interseccion_c, interseccion_e, 3)
+
+
+# Calcular la distancia entre dos intersecciones y las calles que las une
+# Ambas deben imprimir 10, debido a que están conectadas por medio de arista de 10 de longitud
+print(calcDistancia(interseccion_a, interseccion_b))
+print(calcDistancia(interseccion_b, interseccion_a))
+
 gps.agregar(interseccion_a)
 gps.agregar(interseccion_b)
+gps.agregar(interseccion_c)
+gps.agregar(interseccion_d)
+gps.agregar(interseccion_e)
+gps.agregar(interseccion_f)
 
 
 # Estos statements de aquí abajo deberían imprimir true todos, pero el último imprime false ya que la función
 # estaConectado no hace una búsqueda de profundidad
 print(gps.existeInterseccion(interseccion_a))
 print(gps.existeCalle(calle_ab))
+print(gps.existeCalle(calle_bc))
 print(estaConectado(interseccion_a, interseccion_b))
 print(estaConectado(interseccion_b, interseccion_c))
 print(estaConectado(interseccion_a, interseccion_c))
+
+gps.shortestPath(interseccion_a, interseccion_b)
+
+gps.shortestPath(interseccion_b, interseccion_f)
+
+gps.shortestPath(interseccion_d, interseccion_e)
