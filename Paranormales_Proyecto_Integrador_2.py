@@ -119,30 +119,32 @@ class GPS:
         dfs(start, set(), [], all_paths)  # Llamada inicial al DFS
         return all_paths
 
-    """A partir de la funcion anterior, construir una funcion que encuentre el camino mas corto entre dos intersecciones"""
-    # camino más corto == menos nodos
-    # Implementación de shortestPath
-    # Inicio de la sección desarrollada por Yordi Polanco | 24-0937
+    # Implementación de shortestPath por Yordi Polanco | 24-0937
     def shortestPath(self, start, end):
-        all_paths = self.findPaths(start, end)
-        if not all_paths:  # Si no hay caminos
-            return None
-
+        all_paths = self.findPaths(start, end) # Obtener todos los caminos posibles entre start y end
+        if not all_paths:  # Si no hay caminos, devolver None
+            return None    # Verificar si la lista de caminos está vacía
+        
+        # Inicializar variables para almacenar el camino más corto y su distancia
         shortest_path = None
         shortest_distance = float('inf')
 
+        # Iterar sobre todos los caminos encontrados
         for path in all_paths:
             distance = 0
+            # Calcular la distancia total del camino actual
             for i in range(len(path) - 1):
                 # Buscar la distancia entre nodos consecutivos
                 for conexion in path[i].conexiones:
+                    # Verificar si la conexión une los nodos consecutivos
                     if conexion.destination == path[i + 1] or conexion.origen == path[i + 1]:
-                        distance += conexion.distancia
-                        break
+                        distance += conexion.distancia # Sumar la distancia de la calle
+                        break # Salir del bucle interno porque ya encontramos la conexión
+            # Comparar la distancia actual con la más corta encontrada hasta ahora
             if distance < shortest_distance:
-                shortest_distance = distance
-                shortest_path = path
-
+                shortest_distance = distance # Actualizar la distancia más corta
+                shortest_path = path # Actualizar el camino más corto
+         # Devolver el camino más corto y su distancia total
         return shortest_path, shortest_distance
     # Fin de la sección desarrollada por Yordi Polanco | 24-0937
 
