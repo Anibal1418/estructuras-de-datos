@@ -119,10 +119,30 @@ class GPS:
         dfs(start, set(), [], all_paths)  # Llamada inicial al DFS
         return all_paths
 
-    """A partir de la funcion anterior, construir una funcion que encuentre el camino mas corto entre dos intersecciones"""
-    # camino más corto == menos nodos
-    # def shortestPath(self, start, end):
+    # Implementación de shortestPath
+    # Inicio de la sección desarrollada por Yordi Polanco | 24-0937
+    def shortestPath(self, start, end):
+        all_paths = self.findPaths(start, end)
+        if not all_paths:  # Si no hay caminos
+            return None
 
+        shortest_path = None
+        shortest_distance = float('inf')
+
+        for path in all_paths:
+            distance = 0
+            for i in range(len(path) - 1):
+                # Buscar la distancia entre nodos consecutivos
+                for conexion in path[i].conexiones:
+                    if conexion.destination == path[i + 1] or conexion.origen == path[i + 1]:
+                        distance += conexion.distancia
+                        break
+            if distance < shortest_distance:
+                shortest_distance = distance
+                shortest_path = path
+
+        return shortest_path, shortest_distance
+    # Fin de la sección desarrollada por Yordi Polanco | 24-0937
 
     # Consulta si el grafo está vacío
     def isEmpty(self):
