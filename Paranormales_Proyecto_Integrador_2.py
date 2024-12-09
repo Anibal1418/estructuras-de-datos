@@ -119,6 +119,8 @@ class GPS:
         dfs(start, set(), [], all_paths)  # Llamada inicial al DFS
         return all_paths
 
+    """A partir de la funcion anterior, construir una funcion que encuentre el camino mas corto entre dos intersecciones"""
+    # camino más corto == menos nodos
     # Implementación de shortestPath
     # Inicio de la sección desarrollada por Yordi Polanco | 24-0937
     def shortestPath(self, start, end):
