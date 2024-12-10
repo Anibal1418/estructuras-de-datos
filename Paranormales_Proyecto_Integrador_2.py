@@ -4,7 +4,7 @@ Cada nodo tiene un valor (value) que puede ser cualquier tipo
 de dato (por ejemplo, una cadena de texto). 
 Cada nodo también tiene una lista llamada conexiones,
 que se utiliza para almacenar las aristas que están conectadas
-a este nodo.
+a este nodo. Luis Sánchez 24-0057
 '''
 class Interseccion:
     def __init__(self, id):
@@ -49,6 +49,7 @@ def estaConectado (origen, destino):
 
 # Función que calcula la distancia entre un nodo de origen y un nodo destino, hasta ahora solo hace un
 # Chequeo superficial, necesitamos que haga un chequeo profundo en caso de que los dos nodos no estén conectados directamente
+# Luis Sánchez 24-0057
 def calcDistancia (origen, destino):
     for conexionA in origen.conexiones: 
         if conexionA.destination == destino:
@@ -80,8 +81,8 @@ def dfs(nodo_actual, destino, visitados, camino_actual, todos_los_camino):
     
 # ESTA ES LA CLASE GPS. Básicamente puede ser o una lista de nodos, o un diccionario de nodos accedidos por nombre.
 # Aquí es adonde se van a administrar las funciones de nodos conectados, como búsqueda de caminos, cálculos de distancias, etc.
+# Luis Sánchez 24-0057
 
-# Hasta ahora lo que hice fue crear un diccionario, donde cada intersección está colocada de la manera: {interseccion:[calles]}
 class GPS:
 
     def __init__(self):
@@ -180,6 +181,7 @@ class GPS:
         return False
 
 
+# Flujo del código y pruebas de debugging, Luis Sánchez 24-0057
 gps = GPS()
 
 interseccion_a = Interseccion("A")
