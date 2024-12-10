@@ -36,7 +36,6 @@ def conectar(origen, calle, destino):
     if calle not in destino.conexiones:
         destino.conexiones.append(calle)
 
-# Función de conexión - Eduardo Alba 24-0050
 def estaConectado(origen, destino):
     # Conjunto para llevar registro de nodos visitados
     visitados = set()
