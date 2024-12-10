@@ -39,13 +39,8 @@ Sólo añade un vecino a la lista del nodo origen.
 def relacionarUnilateral(grafo, origen, destino):
     grafo.relaciones[origen].append(destino)
 
-<<<<<<< HEAD
 '''
 Recorrido en profundidad primero (DFS): Yordi Polanco 24-0937
-=======
-''' Yordi Polanco 24-0937
-Recorrido en profundidad primero (DFS):
->>>>>>> 59ba842252fa3dbe419106ed5c89fa3a47ddb648
 Este algoritmo explora lo más lejos posible desde un nodo inicial antes de retroceder. 
 Se asegura de no visitar nodos repetidos para evitar ciclos infinitos.
 '''

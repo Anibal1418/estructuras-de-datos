@@ -57,6 +57,27 @@ def calcDistancia (origen, destino):
             return conexionA.distancia
     return None
 
+# Función DFS independiente fuera de la clase GPS - Luis Muñoz 24-0345
+def dfs(nodo_actual, destino, visitados, camino_actual, todos_los_camino):
+    visitados.add(nodo_actual)  # Marcar nodo actual como visitado
+    camino_actual.append(nodo_actual)  # Agregar nodo al camino actual
+
+    # Si llegamos al destino, guardamos el camino
+    if nodo_actual == destino:
+        todos_los_camino.append(camino_actual[:])  # Guardar una copia del camino actual
+    else:
+        # Explorar los nodos vecinos
+        for conexion in nodo_actual.conexiones:
+            # Determinar el siguiente nodo
+            siguiente_interseccion = conexion.destination if conexion.origen == nodo_actual else conexion.origen
+            # Si el siguiente nodo no ha sido visitado, explorarlo recursivamente
+            if siguiente_interseccion not in visitados:
+                dfs(siguiente_interseccion, destino, visitados, camino_actual, todos_los_camino)
+
+    # Retroceder (backtracking): desmarcar el nodo actual y eliminarlo del camino
+    camino_actual.pop()  # Eliminar el nodo actual del camino
+    visitados.remove(nodo_actual)  # Marcar el nodo actual como no visitado para otros caminos posibles
+    
 # ESTA ES LA CLASE GPS. Básicamente puede ser o una lista de nodos, o un diccionario de nodos accedidos por nombre.
 # Aquí es adonde se van a administrar las funciones de nodos conectados, como búsqueda de caminos, cálculos de distancias, etc.
 
@@ -76,30 +97,17 @@ class GPS:
     '''CONSTRUIR una funcion que devuelva todos los caminos entre dos nodos'''
     # Función para encontrar todos los caminos posibles entre dos nodos - Luis Muñoz 24-0345
     def findPaths(self, start, end):
-        # Función recursiva para realizar DFS y buscar caminos
-        def dfs(current, visited, path, all_paths):
-            visited.add(current)  # Marcar nodo actual como visitado
-            path.append(current)  # Agregar nodo al camino actual
-
-            if current == end:  # Si llegamos al destino, guardamos el camino
-                all_paths.append(path[:])  # Guardar una copia del camino actual
-            else:
-                # Explorar nodos vecinos
-                for conexion in current.conexiones:
-                    next_interseccion = conexion.destination if conexion.origen == current else conexion.origen
-                    if next_interseccion not in visited:
-                        dfs(next_interseccion, visited, path, all_paths)
-
-            path.pop()  # Retroceder al nodo anterior
-            visited.remove(current)  # Desmarcar nodo actual
-
         # Si no están conectados, no hay caminos posibles
         if not estaConectado(start, end):
             return []
 
-        all_paths = []  # Lista para almacenar todos los caminos encontrados
-        dfs(start, set(), [], all_paths)  # Llamada inicial al DFS
-        return all_paths
+        todos_los_camino = []  # Lista para almacenar todos los caminos encontrados
+        visitados = set()  # Conjunto para llevar el control de nodos visitados
+        camino_actual = []  # Lista para almacenar el camino actual
+
+        # Llamada inicial a dfs
+        dfs(start, end, visitados, camino_actual, todos_los_camino)
+        return todos_los_camino
 
     # Implementación de shortestPath por Yordi Polanco | 24-0937
     def shortestPath(self, start, end):
@@ -218,7 +226,6 @@ print(estaConectado(interseccion_b, interseccion_c))
 print(estaConectado(interseccion_a, interseccion_c))
 
 gps.shortestPath(interseccion_a, interseccion_b)
-
 gps.shortestPath(interseccion_b, interseccion_f)
-
 gps.shortestPath(interseccion_d, interseccion_e)
+gps.shortestPath(interseccion_a, interseccion_c)
