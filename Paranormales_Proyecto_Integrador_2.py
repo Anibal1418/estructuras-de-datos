@@ -124,7 +124,7 @@ class GPS:
         DFS(start, end, visitados, camino_actual, todos_los_caminos)
         return todos_los_caminos
 
-    # Implementación de caminoMasCorto por Yordi Polanco 24-0937 y Alisha Núñez 24-0813
+    # Implementación de caminoMasCorto por Yordi Polanco 24-0937
     def caminoMasCorto(self, inicio, final):
 
         # Obtener todos los caminos posibles entre start y end
