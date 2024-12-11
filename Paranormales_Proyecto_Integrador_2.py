@@ -77,7 +77,7 @@ def DFS(nodo_actual, destino, visitados, camino_actual, todos_los_camino):
 # Función para imprimir todos los caminos que unen una lista de nodos
 # Alisha Núñez 24-0813
 def imprimirCaminos(lista_de_nodos): #Toma una lista de nodos como la que retorna caminoMasCorto
-    print("\nLos caminos que debe tomar para llegar más rápido a su destino son:")
+    print("\nLos calles que debe tomar para llegar más rápido a su destino son:")
     i = 1 #Iterador para analizar el nodo siguiente
     for nodo in lista_de_nodos: #Itera por cada nodo
         for camino in nodo.conexiones:
@@ -216,22 +216,22 @@ calle_bc = Calle("Gustavo Mejía Ricart", interseccion_b, interseccion_c, 7)
 calle_ad = Calle("27 de Febrero", interseccion_a, interseccion_d, 25)
 calle_bd = Calle("Calle Ramón Santana", interseccion_b, interseccion_d, 5)
 
-calle_ef = Calle("Calle César Nicolas Penson", interseccion_e, interseccion_f, 12)
+calle_ef = Calle("César Nicolas Penson", interseccion_e, interseccion_f, 12)
 
 calle_de = Calle("Avenida Abraham Lincoln", interseccion_d, interseccion_e, 10)
 calle_ce = Calle("Avenida México", interseccion_c, interseccion_e, 3)
 
 
 # Y buscamos el camino más corto entre varios nodos de ejemplo
-print("\n---------------------------EJEMPLO DE CONEXIÓN DIRECTA---------------------------")
+print("\n---------------------------EJEMPLO DE CONEXIÓN DIRECTA----------------------------------------------")
 imprimirCaminos(gps.caminoMasCorto(interseccion_a, interseccion_b))
-print("------------------------------------------------------\n\n")
-print("---------------------------EJEMPLO DE CONEXIÓN INDIRECTA CERCANA---------------------------")
+print("------------------------------------------------------------------------------------------------------\n\n")
+print("---------------------------EJEMPLO DE CONEXIÓN INDIRECTA CERCANA--------------------------------------")
 imprimirCaminos(gps.caminoMasCorto(interseccion_a, interseccion_c))
-print("------------------------------------------------------\n\n")
-print("---------------------------EJEMPLO DE CONEXIÓN INDIRECTA LEJANA---------------------------")
+print("------------------------------------------------------------------------------------------------------\n\n")
+print("---------------------------EJEMPLO DE CONEXIÓN INDIRECTA LEJANA---------------------------------------")
 imprimirCaminos(gps.caminoMasCorto(interseccion_a, interseccion_f))
-print("------------------------------------------------------\n\n")
-print("---------------------------EJEMPLO DE CONEXIÓN INDIRECTA LEJANA EN REVERSA---------------------------")
+print("------------------------------------------------------------------------------------------------------\n\n")
+print("---------------------------EJEMPLO DE CONEXIÓN INDIRECTA LEJANA EN REVERSA----------------------------")
 imprimirCaminos(gps.caminoMasCorto(interseccion_f, interseccion_a))
-print("------------------------------------------------------\n\n")
+print("------------------------------------------------------------------------------------------------------\n\n")
