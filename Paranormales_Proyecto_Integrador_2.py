@@ -31,7 +31,7 @@ class Calle:
 Estas son funciones independientes que manipulan nodos y calles
 '''
 
-# Función de conexión - Eduardo Alba 24-0050
+# Función para confirmar conexión - Eduardo Alba 24-0050
 def estaConectado(origen, destino):
     # Conjunto para llevar registro de nodos visitados
     visitados = set()
@@ -51,14 +51,15 @@ def estaConectado(origen, destino):
     # Iniciar DFS desde el nodo de origen
     return dfs_simpl(origen)
 
-# Función DFS compleja e independiente, añade esa búsqeuda a una lista llamada todos_los_camino - Luis Muñoz 24-0345
+# Función DFS compleja e independiente, añade esa búsqueda a una lista llamada todos_los_camino - Luis Muñoz 24-0345
 def DFS(nodo_actual, destino, visitados, camino_actual, todos_los_camino):
     visitados.add(nodo_actual)  # Marcar nodo actual como visitado
     camino_actual.append(nodo_actual)  # Agregar nodo al camino actual
 
     # Si llegamos al destino, guardamos el camino
     if nodo_actual == destino:
-        todos_los_camino.append(camino_actual[:])  # Guardar una copia del camino actual
+        if camino_actual not in todos_los_camino:
+            todos_los_camino.append(camino_actual[:])  # Guardar una copia del camino actual
     else:
         # Explorar los nodos vecinos
         for conexion in nodo_actual.conexiones:
@@ -71,11 +72,28 @@ def DFS(nodo_actual, destino, visitados, camino_actual, todos_los_camino):
 
     # Retroceder (backtracking): desmarcar el nodo actual y eliminarlo del camino
     camino_actual.pop()  # Eliminar el nodo actual del camino
-    visitados.remove(nodo_actual)  # Marcar el nodo actual como no visitado para otros caminos posibles
+    visitados.remove(nodo_actual)  # Marcar el nodo actual como no visitado para ver otros caminos posibles
+
+# Función para imprimir todos los caminos que unen una lista de nodos
+# Alisha Núñez 24-0813
+def imprimirCaminos(lista_de_nodos): #Toma una lista de nodos como la que retorna caminoMasCorto
+    print("\nLos caminos que debe tomar para llegar más rápido a su destino son:")
+    i = 1 #Iterador para analizar el nodo siguiente
+    for nodo in lista_de_nodos: #Itera por cada nodo
+        for camino in nodo.conexiones:
+            if(i < len(lista_de_nodos)):
+                #Si el nodo analizado y el nodo que le sigue son parte del mismo camino, imprimirlo
+                if(camino.origen == nodo and camino.destination == lista_de_nodos[i]): 
+                    print(camino.name)
+                    break
+                elif(camino.destination == nodo and camino.origen == lista_de_nodos[i]):
+                    print(camino.name)
+                    break
+        i+=1
     
-# ESTA ES LA CLASE GPS. Básicamente es un diccionario de nodos accedidos por nombre.
-# Aquí es adonde se administran las funciones de nodos conectados, como búsqueda de caminos, cálculos de distancias, etc.
-# Luis Sánchez 24-0057
+''' ESTA ES LA CLASE GPS. Básicamente es un diccionario de nodos accedidos por nombre.
+Aquí es adonde se administran las funciones de nodos conectados, como búsqueda de caminos, cálculos de distancias, etc.
+Luis Sánchez 24-0057'''
 
 class GPS:
 
@@ -106,7 +124,7 @@ class GPS:
         DFS(start, end, visitados, camino_actual, todos_los_caminos)
         return todos_los_caminos
 
-    # Implementación de caminoMasCorto por Yordi Polanco | 24-0937
+    # Implementación de caminoMasCorto por Yordi Polanco 24-0937 y Alisha Núñez 24-0813
     def caminoMasCorto(self, inicio, final):
 
         # Obtener todos los caminos posibles entre start y end
@@ -154,7 +172,6 @@ class GPS:
         print(" -> ".join([i.id for i in camino_mas_corto]))
         print(f"Distancia total: {distancia_mas_corta} km")
         return camino_mas_corto
-    # Fin de la sección desarrollada por Yordi Polanco | 24-0937
 
     # Consulta si el grafo está vacío
     def isEmpty(self):
@@ -172,21 +189,8 @@ class GPS:
                     return True
         return False
 
-# Función para imprimir todos los caminos que unen una lista de nodos
-# Alisha Núñez 24-0813
-def imprimirCaminos(lista_de_nodos):
-    print("\nLos caminos que debe tomar para llegar más rápido a su destino son:")
-    i = 1
-    for nodo in lista_de_nodos:
-        for camino in nodo.conexiones:
-            if(i < len(lista_de_nodos)):
-                if(camino.origen == nodo and camino.destination == lista_de_nodos[i]):
-                    print(camino.name)
-                    break
-        i+=1
 
-
-# Flujo del código y pruebas de debugging, Luis Sánchez 24-0057
+'''Flujo del código y pruebas de debugging, Luis Sánchez 24-0057'''
 gps = GPS()
 
 # Aquí se definen las intersecciones y sus identificadores
@@ -206,11 +210,11 @@ gps.agregarInterseccion(interseccion_e)
 gps.agregarInterseccion(interseccion_f)
 
 # Aqui se definen las calles, sus nombres, longitudes, y qué conectan
-calle_ab = Calle("Máximo Gómez", interseccion_a, interseccion_b, 10)
-calle_bc = Calle("Gustavo Mejía Ricart", interseccion_b, interseccion_c, 5)
+calle_ab = Calle("Máximo Gómez", interseccion_a, interseccion_b, 14)
+calle_bc = Calle("Gustavo Mejía Ricart", interseccion_b, interseccion_c, 7)
 
 calle_ad = Calle("27 de Febrero", interseccion_a, interseccion_d, 25)
-calle_bd = Calle("Calle Ramón Santana", interseccion_b, interseccion_c, 5)
+calle_bd = Calle("Calle Ramón Santana", interseccion_b, interseccion_d, 5)
 
 calle_ef = Calle("Calle César Nicolas Penson", interseccion_e, interseccion_f, 12)
 
@@ -227,4 +231,7 @@ imprimirCaminos(gps.caminoMasCorto(interseccion_a, interseccion_c))
 print("------------------------------------------------------\n\n")
 print("---------------------------EJEMPLO DE CONEXIÓN INDIRECTA LEJANA---------------------------")
 imprimirCaminos(gps.caminoMasCorto(interseccion_a, interseccion_f))
+print("------------------------------------------------------\n\n")
+print("---------------------------EJEMPLO DE CONEXIÓN INDIRECTA LEJANA EN REVERSA---------------------------")
+imprimirCaminos(gps.caminoMasCorto(interseccion_f, interseccion_a))
 print("------------------------------------------------------\n\n")
